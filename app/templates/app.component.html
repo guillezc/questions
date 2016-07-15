@@ -1,1 +1,12 @@
 <q-header></q-header>
+<div class="clearfix"></div>
+<div class="page-container">
+	<q-sidebar></q-sidebar>
+	<div class="page-content-wrapper">
+        <div class="page-content">
+        	<div ui-view class="fade-in-up">
+        		<router-outlet></router-outlet>
+        	</div>
+        </div>
+    </div>
+</div>

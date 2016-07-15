@@ -1,0 +1,7 @@
+.page-body .page-header.navbar .menu-toggler.sidebar-toggler,
+.page-body .page-header.navbar .menu-toggler.responsive-toggler{
+	height: 14px;
+}
+.page-body .page-header.navbar .menu-toggler>span{
+	top: 9px;
+}

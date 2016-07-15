@@ -1,0 +1,28 @@
+<div class="page-sidebar-wrapper">
+	<div class="page-sidebar navbar-collapse collapse">
+    <!-- BEGIN SIDEBAR MENU -->
+    <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true"
+    data-slide-speed="200" [ngClass]="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+
+        <li class="nav-item">
+            <a [routerLink]="['/home']" data-href="/home" routerLinkActive="active">
+                <i class="icon-home"></i>
+                <span class="title">Tablero</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a [routerLink]="['/questions']" data-href="/questions">
+                <i class="icon-question"></i>
+                <span class="title">Preguntas</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#/votaciones.html">
+                <i class="icon-note"></i>
+                <span class="title">Votaciones</span>
+            </a>
+        </li>
+    </ul>
+    <!-- END SIDEBAR MENU -->
+</div>
+</div>

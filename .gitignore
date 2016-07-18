@@ -7,6 +7,7 @@ link-checker-results.txt
 app/*.js
 app/classes/*.js
 app/pages/*.js
+app/services/*.js
 *.js.map
 e2e/**/*.js
 e2e/**/*.js.map

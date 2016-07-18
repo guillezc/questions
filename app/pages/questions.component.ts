@@ -21,7 +21,7 @@ export class QuestionsComponent implements OnInit {
   	this.questionService.getQuestions().then(questions => this.questions = questions);
   }
   ngOnInit() {
-  	this.getHeroes();
+  	this.getHeroes();;
   }
 
 }

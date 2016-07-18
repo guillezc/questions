@@ -20,10 +20,13 @@ import {
   RouterConfig
 } from '@angular/router';
 
+import { QuestionService } from './services/question.service';
+
 @Component({
     selector: 'questions-app',
     templateUrl: 'app/templates/app.component.html',
-    directives: [ROUTER_DIRECTIVES, HeaderComponent, SidebarComponent]
+    directives: [ROUTER_DIRECTIVES, HeaderComponent, SidebarComponent],
+    providers: [QuestionService]
 })
 
 class MainComponent {}

@@ -5,3 +5,10 @@
 .page-body .page-header.navbar .menu-toggler>span{
 	top: 9px;
 }
+.questions-selecteds h4{
+	font-weight: 500;
+}
+.portlet.light>.portlet-title>.caption>small{
+    color: #36c6d3;
+    padding-left: 17px;
+}

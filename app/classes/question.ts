@@ -1,6 +1,13 @@
 export class Question {
   id: number;
-  pregunta: string;
-  usuario: string;
-  creacion: string;
+  AllDay: boolean;
+  day: number;
+  description: string;
+  endTime: string;
+  hasDetails: boolean;
+  location: string;
+  onMySchedule: boolean;
+  slug: string;
+  startTime: string;
+  title: string;
 }

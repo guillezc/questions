@@ -1,4 +1,6 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
+import { FIREBASE_PROVIDERS, defaultFirebase } from 'angularfire2';
+import { Logger } from './logger';
 
 import { Component } from '@angular/core';
 import { HeaderComponent } from './header.component';
@@ -33,5 +35,13 @@ class MainComponent {}
 
 bootstrap(MainComponent, [
   appRouterProviders,
-  {provide: LocationStrategy, useClass: HashLocationStrategy}
-]);
+  FIREBASE_PROVIDERS,
+  defaultFirebase({
+    apiKey: "AIzaSyB5ZUgBJabSy-F18lNUiyqmb0xy72oFCx4",
+    authDomain: "questions-16537.firebaseapp.com",
+    databaseURL: "https://questions-16537.firebaseio.com",
+    storageBucket: "questions-16537.appspot.com"
+  }),
+  {provide: LocationStrategy, useClass: HashLocationStrategy},
+  {provide: Logger, useClass: Logger}
+]).catch(err => console.error(err));;

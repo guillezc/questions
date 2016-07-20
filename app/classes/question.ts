@@ -1,4 +1,5 @@
 export class Question {
+  $key: number;
   id: number;
   AllDay: boolean;
   day: number;

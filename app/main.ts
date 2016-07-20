@@ -1,5 +1,6 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { FIREBASE_PROVIDERS, defaultFirebase } from 'angularfire2';
+import {LocalStorageService, LocalStorageSubscriber} from 'angular2-localstorage/LocalStorageEmitter';
 import { Logger } from './logger';
 
 import { Component } from '@angular/core';
@@ -28,12 +29,16 @@ import { QuestionService } from './services/question.service';
     selector: 'questions-app',
     templateUrl: 'app/templates/app.component.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent, SidebarComponent],
-    providers: [QuestionService]
+    providers: [QuestionService, LocalStorageService]
 })
 
-class MainComponent {}
+class MainComponent {
+	constructor(storageService: LocalStorageService){
+		
+	}
+}
 
-bootstrap(MainComponent, [
+var appPromise = bootstrap(MainComponent, [
   appRouterProviders,
   FIREBASE_PROVIDERS,
   defaultFirebase({
@@ -44,4 +49,6 @@ bootstrap(MainComponent, [
   }),
   {provide: LocationStrategy, useClass: HashLocationStrategy},
   {provide: Logger, useClass: Logger}
-]).catch(err => console.error(err));;
+]).catch(err => console.error(err));
+
+LocalStorageSubscriber(appPromise);

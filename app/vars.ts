@@ -13,11 +13,7 @@ let _settings = {
 }
 
 
-let _questions: Question[] = [
-	{id: 1, pregunta: "Esta es la pregunta 1", usuario: "Memo", creacion: "14/07/2016 17:53:30"},
-	{id: 2, pregunta: "Esta es la pregunta 2", usuario: "Memo", creacion: "14/07/2016 17:54:30"},
-	{id: 3, pregunta: "Esta es la pregunta 3", usuario: "Listico", creacion: "14/07/2016 17:56:30"}
-]
+let _questions: Question[] = []
 
 export const VARS = {
 	SETTINGS: _settings,

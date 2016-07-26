@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from './header.component';
 import { SidebarComponent } from './sidebar.component';
 
-import { HomeComponent } from './pages/home.component';
-import { QuestionsComponent } from './pages/questions.component';
+import { HomeComponent } from './pages/inicio.component';
+import { QuestionsComponent } from './pages/preguntas.component';
 
 import { appRouterProviders } from './app.routes';
 

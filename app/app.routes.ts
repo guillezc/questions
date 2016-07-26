@@ -1,21 +1,26 @@
 import { provideRouter, RouterConfig }  from '@angular/router';
 
-import { HomeComponent } from './pages/home.component';
-import { QuestionsComponent } from './pages/questions.component';
+import { HomeComponent } from './pages/inicio.component';
+import { QuestionsComponent } from './pages/preguntas.component';
+import { ProyectedComponent } from './pages/proyectar.component';
 
 const routes: RouterConfig = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/inicio',
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: 'inicio',
     component: HomeComponent
   },
   {
-    path: 'questions',
+    path: 'preguntas',
     component: QuestionsComponent
+  },
+  {
+    path: 'proyectar',
+    component: ProyectedComponent
   }
 ];
 

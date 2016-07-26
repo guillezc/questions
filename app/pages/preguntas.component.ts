@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router';
-import {LocalStorage, SessionStorage} from "angular2-localstorage/WebStorage";
-import {Logger} from '../logger'
+import { LocalStorage, SessionStorage } from "angular2-localstorage/WebStorage";
+import { Logger } from '../logger'
 
 import { Question } from '../classes/question';
 import { QuestionService } from '../services/question.service';
@@ -26,18 +26,22 @@ export class QuestionsComponent implements OnInit {
     private logger         : Logger,
     private angFire        : AngularFire) {
   		this.firebase = angFire;
-  		this.logger.log(this.proyecteds);
+  		//this.logger.log(this.proyecteds);
   }
-  getHeroes(){
+  getQuestions(){
   	this.questions = this.firebase.database.list('sessions');  	
   }
   onComplete(qs: Question[]){
   }
   ngOnInit() {
-  	this.getHeroes();
+  	this.getQuestions();
   }
   addToSelecteds(q: Question){
   	this.proyecteds.push(q);
+  }
+  goToProyecteds(){
+    let link = ['/proyectar'];
+    this.router.navigate(link);
   }
 
 }

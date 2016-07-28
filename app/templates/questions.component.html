@@ -20,20 +20,18 @@
         	</div>
             <div class="portlet-body">
                 <div class="table-container">
-                    <table class="table table-striped table-bordered table-hover table-checkable" id="datatable_questions">
+                    <table class="table table-striped table-bordered table-hover" id="datatable_questions">
                         <thead>
                             <tr role="row" class="heading">
-                                <th width="5%"> ID </th>
-                                <th width="50%"> Pregunta </th>
+                                <th width="55%"> Pregunta </th>
                                 <th width="25%"> Usuario </th>
                                 <th width="20%"> Proyectar </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let question of questions | async">
-                                <td>{{ question.$key }}</td>
-                                <td>{{ question.title }}</td>
-                                <td>{{ question.description }}</td>
+                                <td>{{ question.question }}</td>
+                                <td>{{ question.response }}</td>
                                 <td>
                                     <a href="javascript:;" (click)="addToSelecteds(question)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-check"></i> Seleccionar</a>
                                 </td>
@@ -54,8 +52,8 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let qSelect of proyecteds">
-                                    <td>{{ qSelect.title }}</td>
-                                    <td>{{ qSelect.description }}</td>
+                                    <td>{{ qSelect.question }}</td>
+                                    <td>{{ qSelect.response }}</td>
                                 </tr>
                             </tbody>
                         </table>

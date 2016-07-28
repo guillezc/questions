@@ -3,9 +3,6 @@ import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { LocalStorage, SessionStorage } from "angular2-localstorage/WebStorage";
 import { Logger } from '../logger'
 
-import { Question } from '../classes/question';
-import { QuestionService } from '../services/question.service';
-
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
@@ -15,28 +12,28 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 
 export class QuestionsComponent implements OnInit {
-  @SessionStorage() public proyecteds:Array<Question> = [];
-  questions: FirebaseListObservable<Question[]>;
-  qSelecteds: Question[] = [];
+  @SessionStorage() public proyecteds:Array<any> = [];
+  questions: FirebaseListObservable<any[]>;
+  qSelecteds: any[] = [];
   firebase: AngularFire;
 
   constructor(
     private router         : Router,
-    private questionService: QuestionService,
     private logger         : Logger,
     private angFire        : AngularFire) {
   		this.firebase = angFire;
   		//this.logger.log(this.proyecteds);
   }
   getQuestions(){
-  	this.questions = this.firebase.database.list('sessions');  	
+  	this.questions = this.firebase.database.list('questions');  
+    //this.logger.log(this.questions.forEach);	
   }
-  onComplete(qs: Question[]){
+  onComplete(qs: any[]){
   }
   ngOnInit() {
   	this.getQuestions();
   }
-  addToSelecteds(q: Question){
+  addToSelecteds(q: any){
   	this.proyecteds.push(q);
   }
   goToProyecteds(){

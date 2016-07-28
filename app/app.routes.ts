@@ -3,6 +3,7 @@ import { provideRouter, RouterConfig }  from '@angular/router';
 import { HomeComponent } from './pages/inicio.component';
 import { QuestionsComponent } from './pages/preguntas.component';
 import { ProyectedComponent } from './pages/proyectar.component';
+import { RatingsComponent } from './pages/votaciones.component';
 
 const routes: RouterConfig = [
   {
@@ -21,6 +22,10 @@ const routes: RouterConfig = [
   {
     path: 'proyectar',
     component: ProyectedComponent
+  },
+  {
+    path: 'votaciones',
+    component: RatingsComponent
   }
 ];
 

@@ -24,7 +24,7 @@ export class ProyectedComponent implements OnInit{
 
   ngOnInit() {
   	ProyectedsVar.init();
-  	this.proyecteds[0].active = 1;
+  	this.proyecteds[0]['active'] = 1;
   	this.logger.log(this.proyecteds);
   }
 

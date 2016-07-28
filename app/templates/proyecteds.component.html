@@ -1,26 +1,26 @@
 <div id="carousel-proyecteds" class="carousel slide" data-ride="carousel">
     <h1>Sesión día hora</h1>
     <ol class="carousel-indicators">
-        <li data-target="#carousel-proyecteds" *ngFor="let slide of proyecteds" [attr.data-slide-to]="slide.$key" [class.active]="slide.active"></li>
+        <li data-target="#carousel-proyecteds" *ngFor="let slide of proyecteds; let i = index" [attr.data-slide-to]="i" [class.active]="slide.active"></li>
       </ol>
       <div class="carousel-inner" role="listbox">
-        <div class="item active" [class.active]="slide.active" *ngFor="let slide of proyecteds" [attr.index]="slide.$key">
+        <div class="item active" [class.active]="slide.active" *ngFor="let slide of proyecteds; let i = index" [attr.index]="i">
                 <!--<img ng-src="{{slide.image}}" style="margin:auto;"> -->
                 <div class="carousel-caption">
                     <div class="table">
                         <div>
-                            <h2>Slide {{slide.title}}</h2>
-                            <h4>{{slide.description}}</h4>
+                            <h2>Slide {{slide.question}}</h2>
+                            <h4>{{slide.response}}</h4>
                         </div>
                     </div>
                 </div>
         </div>
     </div>
-    <a class="left carousel-control" href="#carousel-proyecteds" role="button" [attr.data-slide]="prev">
+    <a class="left carousel-control" data-target="#carousel-proyecteds" role="button" [attr.data-slide]="prev">
         <span class="glyphicon glyphicon-chevron-left" [attr.aria-hidden]="true"></span>
         <span class="sr-only">Previous</span>
       </a>
-      <a class="right carousel-control" href="#carousel-proyecteds" role="button" [attr.data-slide]="next">
+      <a class="right carousel-control" data-target="#carousel-proyecteds" role="button" [attr.data-slide]="next">
         <span class="glyphicon glyphicon-chevron-right" [attr.aria-hidden]="true"></span>
         <span class="sr-only">Next</span>
       </a>

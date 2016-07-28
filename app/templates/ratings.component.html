@@ -1,0 +1,57 @@
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a [routerLink]="['/home']">Inicio</a>
+            <i class="fa fa-circle"></i>
+            <a href="#">Votaciones</a>
+        </li>
+    </ul>
+</div>
+<h3 class="page-title"> Votaciones </h3>
+<div class="row">
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-body">
+            	<div class="table-toolbar">
+            		<div class="row">
+            			<div class="col-md-6 pull-right text-right">
+            				<div class="btn-group">
+                                <button id="add-rating" class="btn sbold green"> Crear votación
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+            			</div>
+            		</div>
+            	</div>
+            	<div class="table-container">
+                    <table class="table table-striped table-bordered table-hover" id="datatable_questions">
+                        <thead>
+                            <tr role="row" class="heading">
+                                <th width="5%"> Día </th>
+                                <th width="20%"> Sesión </th>
+                                <th width="20%"> Hora </th>
+                                <th width="25%">  </th>
+                                <th width="30%">  </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        	<tr *ngFor="let session of sessions | async">
+                                <td>{{ session.day }}</td>
+                                <td>{{ session.title }}</td>
+                                <td>{{ session.startTime | date:"H:mm" }} hrs</td>
+                                <td>
+                                    <a href="javascript:;" (click)="goToResults()" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-external-link"></i> Resultados</a>
+                                </td>
+                                <td>
+                                    <a href="javascript:;" (click)="editSession(session)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-edit"></i> Editar</a>
+                                    <a href="javascript:;" (click)="deleteSession(session)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-trash"></i> Eliminar</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

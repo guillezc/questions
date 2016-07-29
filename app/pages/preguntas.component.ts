@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { LocalStorage, SessionStorage } from "angular2-localstorage/WebStorage";
-import { Logger } from '../logger'
+import { Logger } from '../logger';
 
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 @Component({
   selector: 'q-questions',
@@ -12,9 +12,11 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 
 export class QuestionsComponent implements OnInit {
-  @SessionStorage() public proyecteds:Array<any> = [];
+  //@SessionStorage() public proyecteds:Array<any> = [];
   questions: FirebaseListObservable<any[]>;
-  qSelecteds: any[] = [];
+  filter: FirebaseObjectObservable<any>;
+  sessions: FirebaseListObservable<any[]>;
+  proyecteds: FirebaseListObservable<any[]>;
   firebase: AngularFire;
 
   constructor(
@@ -22,11 +24,16 @@ export class QuestionsComponent implements OnInit {
     private logger         : Logger,
     private angFire        : AngularFire) {
   		this.firebase = angFire;
-  		//this.logger.log(this.proyecteds);
   }
   getQuestions(){
-  	this.questions = this.firebase.database.list('questions');  
-    //this.logger.log(this.questions.forEach);	
+  	this.questions = this.firebase.database.list('questions');
+    this.sessions = this.firebase.database.list('sessions');
+    this.proyecteds = this.firebase.database.list('questions', {
+      query: {
+        orderByChild: 'selected',
+        equalTo: true
+      }
+    });
   }
   onComplete(qs: any[]){
   }
@@ -34,11 +41,25 @@ export class QuestionsComponent implements OnInit {
   	this.getQuestions();
   }
   addToSelecteds(q: any){
-  	this.proyecteds.push(q);
+  	this.questions.update(q.$key, { selected: true });
   }
   goToProyecteds(){
     let link = ['/proyectar'];
     this.router.navigate(link);
+  }
+
+  filterQuestions(day: any, session: any){
+    if(session.value != 'all'){
+      this.questions = this.firebase.database.list('questions', {
+        query: {
+          orderByChild: 'sessionId',
+          equalTo: session.value
+        }
+      });
+    }else{
+      this.questions = this.firebase.database.list('questions');
+    }
+    this.filter = this.firebase.database.object('/sessions/'+session.value);
   }
 
 }

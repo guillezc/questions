@@ -1,10 +1,10 @@
 <div id="carousel-proyecteds" class="carousel slide" data-ride="carousel">
     <h1>Sesión día hora</h1>
     <ol class="carousel-indicators">
-        <li data-target="#carousel-proyecteds" *ngFor="let slide of proyecteds; let i = index" [attr.data-slide-to]="i" [class.active]="slide.active"></li>
+        <li data-target="#carousel-proyecteds" *ngFor="let slide of proyecteds | async; let i = index" [attr.data-slide-to]="i" [class.active]="i==0"></li>
       </ol>
       <div class="carousel-inner" role="listbox">
-        <div class="item active" [class.active]="slide.active" *ngFor="let slide of proyecteds; let i = index" [attr.index]="i">
+        <div *ngFor="let slide of proyecteds | async; let i = index" [attr.index]="i" class="item active" [class.active]="i==0" >
                 <!--<img ng-src="{{slide.image}}" style="margin:auto;"> -->
                 <div class="carousel-caption">
                     <div class="table">

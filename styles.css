@@ -8,7 +8,10 @@
 .questions-selecteds h4{
 	font-weight: 500;
 }
-.portlet.light>.portlet-title>.caption>small{
+.questions-toolbar>.caption{
+    margin-top: 10px;
+}
+.questions-toolbar>.caption>small{
     color: #36c6d3;
     padding-left: 17px;
 }
@@ -54,4 +57,7 @@
     text-align: center;
     color: #fff;
     text-shadow: 0 1px 2px rgba(0,0,0,.6);
+}
+.questions-toolbar label{
+    margin-right: 15px;
 }

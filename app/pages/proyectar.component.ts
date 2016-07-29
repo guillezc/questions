@@ -3,7 +3,7 @@ import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { LocalStorage, SessionStorage } from "angular2-localstorage/WebStorage";
 import { Logger } from '../logger'
 
-import { Question } from '../classes/question';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 declare var ProyectedsVar: any;
 import  'app/js/proyecteds.js';
@@ -15,17 +15,29 @@ import  'app/js/proyecteds.js';
 })
 
 export class ProyectedComponent implements OnInit{
-  @SessionStorage() public proyecteds:Array<Question> = [];
+  proyecteds: FirebaseListObservable<any[]>;
   slides: Array<any> = [];
+  firebase: AngularFire;
 
   constructor(
     private router         : Router,
-    private logger         : Logger) {}
+    private logger         : Logger,
+    private angFire        : AngularFire) {
+      this.firebase = angFire;
+  }
+
+  getQuestions(){
+    this.proyecteds = this.firebase.database.list('questions', {
+      query: {
+        orderByChild: 'selected',
+        equalTo: true
+      }
+    });
+  }
 
   ngOnInit() {
   	ProyectedsVar.init();
-  	this.proyecteds[0]['active'] = 1;
-  	this.logger.log(this.proyecteds);
+    this.getQuestions();
   }
 
   ngOnDestroy(){

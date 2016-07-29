@@ -12,13 +12,35 @@
     <div class="col-md-12">
         <!-- Begin: life time stats -->
         <div class="portlet light portlet-fit portlet-datatable bordered">
-        	<div class="portlet-title">
-        		<div class="caption">
-                    <i class="fa fa-question-circle"></i> Todas las preguntas<br />
-                    <small>Memo | 17:50 | Lunes</small>
-                </div>
-        	</div>
             <div class="portlet-body">
+                <div class="table-toolbar questions-toolbar">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>
+                                Día
+                                <select class="form-control input-sm input-xsmall input-inline" #questionDay>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </label>
+                            <label>
+                                Sesión
+                                <select class="form-control input-md input-medium input-inline" #questionSession>
+                                    <<option value="all">Todas</option>
+                                    <option *ngFor="let session of sessions | async" value="{{ session.$key }}">{{ session.title }}</option>
+                                </select>
+                            </label>
+                            <button id="filter-questions" (click)="filterQuestions(questionDay, questionSession)" class="btn sbold green"> Filtrar
+                                <i class="fa fa-filter"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="caption">
+                        <i class="fa fa-question-circle"></i> Todas las preguntas<br />
+                        <small *ngIf="(filter | async) && (filter | async)?.title">{{ (filter | async)?.title }} | {{ (filter | async)?.startTime | date:"H:mm" }} | {{ (filter | async)?.day }}</small>
+                    </div>
+                </div>
                 <div class="table-container">
                     <table class="table table-striped table-bordered table-hover" id="datatable_questions">
                         <thead>
@@ -31,7 +53,7 @@
                         <tbody>
                             <tr *ngFor="let question of questions | async">
                                 <td>{{ question.question }}</td>
-                                <td>{{ question.response }}</td>
+                                <td>{{ question.userName }}</td>
                                 <td>
                                     <a href="javascript:;" (click)="addToSelecteds(question)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-check"></i> Seleccionar</a>
                                 </td>
@@ -40,7 +62,7 @@
                     </table>
                 </div>
                 
-                <div *ngIf="proyecteds.length > 0" class="questions-selecteds">
+                <div *ngIf="(proyecteds | async) && (proyecteds | async)?.length > 0" class="questions-selecteds">
                     <h4>Preguntas Seleccionadas a proyectar</h4>
                     <div class="table-container">
                         <table class="table table-striped table-bordered table-hover" id="datatable_proyecteds">
@@ -51,7 +73,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let qSelect of proyecteds">
+                                <tr *ngFor="let qSelect of proyecteds | async">
                                     <td>{{ qSelect.question }}</td>
                                     <td>{{ qSelect.response }}</td>
                                 </tr>

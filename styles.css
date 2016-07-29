@@ -28,10 +28,10 @@
 .carousel.slide#carousel-proyecteds .carousel-inner,
 .carousel.slide#carousel-proyecteds .item{
 	height: 100% !important;
-	background: #999;
+	background: #000;
 }
 .carousel.slide#carousel-proyecteds .item{
-	background: #999;
+	background: #000;
 }
 .carousel.slide#carousel-proyecteds .carousel-caption{
 	bottom: auto;

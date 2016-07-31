@@ -7,7 +7,7 @@ import { Pipe } from '@angular/core';
 
 export class ObjToArrPipe {
   transform(object:any) {
-    var newArr = []
+    let newArr: any[] = [];
     for (var key in object) {
         newArr.push(object[key]);
     }

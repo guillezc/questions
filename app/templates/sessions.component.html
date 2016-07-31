@@ -36,8 +36,8 @@
                             <tr *ngFor="let session of sessions | async">
                                 <td>{{ session.title | slice:0:50 }} <span *ngIf="session.title.length > 50">...</span></td>
                                 <td>{{ session.description | slice:0:60 }} <span *ngIf="session.description.length > 60">...</span></td>
-                                <td *ngFor="let speaker of session.speakers | objToArr">
-                                	{{ speaker.name }}
+                                <td>
+                                	<span *ngFor="let speaker of session.speakers | objToArr">{{ speaker.name }} <br/></span>
                                 </td>
                                 <td>{{ session.startTime | date:"dd MMM y - H:mm" }}</td>
                                 <td>{{ session.endTime | date:"dd MMM y - H:mm" }}</td>

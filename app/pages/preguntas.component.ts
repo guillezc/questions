@@ -17,6 +17,7 @@ export class QuestionsComponent implements OnInit {
   filter: FirebaseObjectObservable<any>;
   sessions: FirebaseListObservable<any[]>;
   proyecteds: FirebaseListObservable<any[]>;
+  removes: FirebaseListObservable<any[]>;
   firebase: AngularFire;
 
   constructor(
@@ -25,9 +26,17 @@ export class QuestionsComponent implements OnInit {
     private angFire        : AngularFire) {
   		this.firebase = angFire;
   }
+
   getQuestions(){
   	this.questions = this.firebase.database.list('questions');
+    this.getSelecteds();
+  }
+
+  getSessions(){
     this.sessions = this.firebase.database.list('sessions');
+  }
+
+  getSelecteds(){
     this.proyecteds = this.firebase.database.list('questions', {
       query: {
         orderByChild: 'selected',
@@ -35,14 +44,35 @@ export class QuestionsComponent implements OnInit {
       }
     });
   }
-  onComplete(qs: any[]){
-  }
+
   ngOnInit() {
   	this.getQuestions();
+    this.getSessions();
+    QuestionsVar.init();
   }
+
   addToSelecteds(q: any){
   	this.questions.update(q.$key, { selected: true });
+    this.getSelecteds();
   }
+
+  removeToSelecteds(q: any){
+    this.questions.update(q.$key, { selected: false });
+    this.getSelecteds();
+  }
+
+  removeAll(){
+    //this.logger.log(selectedIds.value);
+    this.removes = this.firebase.database.list('questions', { preserveSnapshot: true });
+    this.removes
+    .subscribe(snapshots => {
+      snapshots.forEach(snapshot => {
+        this.removes.update(snapshot.key, { selected: false });
+      });
+    })
+    this.getQuestions();
+  }
+
   goToProyecteds(){
     let link = ['/proyectar'];
     this.router.navigate(link);

@@ -7,6 +7,7 @@
 }
 .questions-selecteds h4{
 	font-weight: 500;
+    line-height: 30px;
 }
 .questions-toolbar>.caption{
     margin-top: 10px;
@@ -60,4 +61,13 @@
 }
 .questions-toolbar label{
     margin-right: 15px;
+}
+.posRel{
+    position: relative;
+}
+#q-loading{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    top: 50px;
 }

@@ -4,11 +4,12 @@ import { HomeComponent } from './pages/inicio.component';
 import { QuestionsComponent } from './pages/preguntas.component';
 import { ProyectedComponent } from './pages/proyectar.component';
 import { RatingsComponent } from './pages/votaciones.component';
+import { SessionsComponent } from './pages/sesiones.component';
 
 const routes: RouterConfig = [
   {
     path: '',
-    redirectTo: '/inicio',
+    redirectTo: '/sesiones',
     pathMatch: 'full'
   },
   {
@@ -26,6 +27,10 @@ const routes: RouterConfig = [
   {
     path: 'votaciones',
     component: RatingsComponent
+  },
+  {
+    path: 'sesiones',
+    component: SessionsComponent
   }
 ];
 

@@ -71,3 +71,12 @@
     width: 100%;
     top: 50px;
 }
+#datatable_sessions tbody > tr > td{
+    vertical-align: middle;
+}
+#datatable_sessions .btn{
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+    padding: 0;
+}

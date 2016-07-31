@@ -48,7 +48,6 @@ export class QuestionsComponent implements OnInit {
   ngOnInit() {
   	this.getQuestions();
     this.getSessions();
-    QuestionsVar.init();
   }
 
   addToSelecteds(q: any){

@@ -51,7 +51,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let question of questions | async">
+                            <tr *ngFor="let question of questionsList">
                                 <td>{{ question.question }}</td>
                                 <td>{{ question.userName }}</td>
                                 <td>
@@ -65,28 +65,19 @@
                     </div>
                 </div>
                 <br />
-                <div *ngIf="(proyecteds | async) && (proyecteds | async)?.length > 0" class="questions-selecteds">
+                <div *ngIf="questionsListSelected && questionsListSelected.length > 0" class="questions-selecteds">
                     <h4>Preguntas Seleccionadas a proyectar</h4>
                     <div class="table-container">
                         <table class="table table-striped table-bordered table-hover" id="datatable_proyecteds">
                             <thead>
                                 <tr role="row" class="heading">
-                                    <th width="5%">
-                                        <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single">
-                                            <input type="checkbox" class="group-checkable" #idSelectedsAll>
-                                            <span></span>
-                                        </label>
-                                    </th>
                                     <th width="55%"> Pregunta </th>
                                     <th width="25%"> Usuario </th>
                                     <th width="20%"> Acción </th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr *ngFor="let qSelect of proyecteds | async">
-                                    <td>
-                                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input name="ids[]" #idSelecteds type="checkbox" class="checkboxes" value="{{ qSelect.$key }}"/><span></span></label>
-                                    </td>
+                            <tbody >
+                                <tr *ngFor="let qSelect of questionsListSelected">
                                     <td>{{ qSelect.question }}</td>
                                     <td>{{ qSelect.userName }}</td>
                                     <td>

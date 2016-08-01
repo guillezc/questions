@@ -4,6 +4,9 @@ import { LocalStorage, SessionStorage } from "angular2-localstorage/WebStorage";
 import { Logger } from '../logger';
 import { Title } from '@angular/platform-browser';
 
+import { Session }  from '../classes/session';
+import { Question }  from '../classes/question';
+
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 declare var QuestionsVar: any;
@@ -23,6 +26,10 @@ export class QuestionsComponent implements OnInit {
   sessions: FirebaseListObservable<any[]>;
   proyecteds: FirebaseListObservable<any[]>;
   removes: FirebaseListObservable<any[]>;
+
+  questionsObj: Question = new Question();
+  questionsListSelected: Question[] = [];
+  questionsList: Question[] = [];
   firebase: AngularFire;
 
   constructor(
@@ -39,7 +46,9 @@ export class QuestionsComponent implements OnInit {
 
   getQuestions(){
   	this.questions = this.firebase.database.list('questions');
-    this.getSelecteds();
+    this.questions.subscribe(data => {
+      this.questionsList = data;
+    });
   }
 
   getSessions(){
@@ -47,48 +56,47 @@ export class QuestionsComponent implements OnInit {
   }
 
   getSelecteds(){
-    const queryObservable = this.proyecteds = this.firebase.database.list('questions', {
+    this.proyecteds = this.firebase.database.list('questions', {
       query: {
         orderByChild: 'selected',
         equalTo: true
       }
     });
-    queryObservable.subscribe(queriedItems => {
+    this.proyecteds.subscribe(data => {
+      this.questionsListSelected = data;
       QuestionsVar.init();  
     });
   }
 
   ngOnInit() {
     this.setTitle("Preguntas - México Cumbre de Negocios");
-    this.globalQuests = this.firebase.database.object('/questions', { preserveSnapshot: true });
+    //this.globalQuests = this.firebase.database.object('/questions');
   	this.getQuestions();
+    this.getSelecteds();
     this.getSessions();
   }
 
-  addToSelecteds(q: any){
-    this.globalQuests = this.firebase.database.object('/questions/'+q.$key);
-  	this.globalQuests.update({ selected: true });
-    this.getSelecteds();
+  addToSelecteds(q: Question){
+    var id = q.$key;
+    q.selected = true;
+    delete q['$key'];
+    this.firebase.database.object('/questions/'+id).update(q);
   }
 
-  removeToSelecteds(q: any){
-    this.globalQuests = this.firebase.database.object('/questions/'+q.$key);
-    this.globalQuests.update({ selected: false });
-    this.getSelecteds();
+  removeToSelecteds(q: Question){
+    var id = q.$key;
+    q.selected = false;
+    delete q['$key'];
+    this.firebase.database.object('/questions/'+id).update(q);
   }
 
   removeAll(){
-    //this.logger.log(selectedIds.value);
-    this.removes = this.firebase.database.list('questions', { preserveSnapshot: true });
-    this.removes
-    .subscribe(snapshots => {
-      snapshots.forEach(snapshot => {
-        this.globalQuests = this.firebase.database.object('/questions/'+snapshot.key);
-        this.globalQuests.update({ selected: false });
-        //this.removes.update(snapshot.key, { selected: false });
-      });
-    })
-    this.getQuestions();
+    this.questionsListSelected.forEach((q: Question) => {
+      var id = q.$key;
+      q.selected = false;
+      delete q['$key'];
+      this.firebase.database.object('/questions/'+id).update(q);
+    });
   }
 
   goToProyecteds(){
@@ -105,13 +113,11 @@ export class QuestionsComponent implements OnInit {
         }
       });
       this.questions.subscribe(data => {
+        this.questionsList = data;
         this.filter = this.firebase.database.object('/sessions/'+session.value);
       });
     }else{
-      this.questions = this.firebase.database.list('questions');
-      this.questions.subscribe(data => {
-        this.filter = this.firebase.database.object('/sessions/'+session.value);
-      });
+      this.getQuestions();
     }
     
   }

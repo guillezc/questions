@@ -1,14 +1,14 @@
 export class Question {
-  $key: number;
-  id: number;
-  AllDay: boolean;
-  day: number;
-  description: string;
-  endTime: string;
-  hasDetails: boolean;
-  location: string;
-  onMySchedule: boolean;
-  slug: string;
-  startTime: string;
-  title: string;
+
+    public $key: number;
+    public userId: string;
+    public userName: string;
+    public sessionId: string;
+    public sessionName: string;
+    public question: string;
+    public response: string;
+    public selected: boolean;
+
+    constructor(){}
+
 }

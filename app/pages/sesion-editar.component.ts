@@ -17,7 +17,6 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
 export class SessionEditComponent {
   sessionObj: Session = new Session();
   session: FirebaseObjectObservable<any>;
-  removes: FirebaseListObservable<any[]>;
   firebase: AngularFire;
   submitted = false;
   sub: any;

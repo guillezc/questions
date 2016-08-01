@@ -17,10 +17,7 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
 export class SessionAddComponent {
   addObj: Session = new Session();
   session: FirebaseListObservable<any>;
-  removes: FirebaseListObservable<any[]>;
-  firebase: AngularFire;
-  submitted = false;
-  sub: any;
+  firebase: AngularFire;  
 
   constructor(
     private router         : Router,

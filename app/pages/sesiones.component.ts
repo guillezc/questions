@@ -4,7 +4,7 @@ import { Logger } from '../logger';
 import { ObjToArrPipe } from '../pipes/objToArr.pipe';
 import { Title } from '@angular/platform-browser';
 
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, AuthProviders, AuthMethods } from 'angularfire2';
 
 @Component({
   selector: 'q-sessions',
@@ -22,7 +22,7 @@ export class SessionsComponent implements OnInit {
   constructor(
     private router         : Router,
     private logger         : Logger,
-    private angFire        : AngularFire,
+    public angFire        : AngularFire,
     private titleService   : Title) {
   		this.firebase = angFire;
   }
@@ -31,7 +31,7 @@ export class SessionsComponent implements OnInit {
     this.titleService.setTitle( newTitle );
   }
 
-  ngOnInit() {
+  ngOnInit() {  
   	this.getSessions();
     this.setTitle("Sesiones - México Cumbre de Negocios");
   }

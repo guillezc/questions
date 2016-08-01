@@ -24,7 +24,7 @@ export class SessionAddComponent implements OnInit {
     private router         : Router,
     private route          : ActivatedRoute,
     private logger         : Logger,
-    private angFire        : AngularFire,
+    public angFire        : AngularFire,
     private titleService   : Title) {
   		this.firebase = angFire;
   }

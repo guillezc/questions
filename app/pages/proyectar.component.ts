@@ -22,7 +22,7 @@ export class ProyectedComponent implements OnInit{
   constructor(
     private router         : Router,
     private logger         : Logger,
-    private angFire        : AngularFire) {
+    public angFire        : AngularFire) {
       this.firebase = angFire;
   }
 

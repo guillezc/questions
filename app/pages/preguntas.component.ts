@@ -47,11 +47,14 @@ export class QuestionsComponent implements OnInit {
   }
 
   getSelecteds(){
-    this.proyecteds = this.firebase.database.list('questions', {
+    const queryObservable = this.proyecteds = this.firebase.database.list('questions', {
       query: {
         orderByChild: 'selected',
         equalTo: true
       }
+    });
+    queryObservable.subscribe(queriedItems => {
+      QuestionsVar.init();  
     });
   }
 
@@ -60,7 +63,6 @@ export class QuestionsComponent implements OnInit {
     this.globalQuests = this.firebase.database.object('/questions', { preserveSnapshot: true });
   	this.getQuestions();
     this.getSessions();
-    QuestionsVar.init();
   }
 
   addToSelecteds(q: any){

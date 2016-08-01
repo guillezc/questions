@@ -1,5 +1,4 @@
 <div id="carousel-proyecteds" class="carousel slide" data-ride="carousel">
-    <h1>Sesión día hora</h1>
     <ol class="carousel-indicators">
         <li data-target="#carousel-proyecteds" *ngFor="let slide of proyecteds | async; let i = index" [attr.data-slide-to]="i" [class.active]="i==0"></li>
       </ol>
@@ -7,6 +6,7 @@
         <div *ngFor="let slide of proyecteds | async; let i = index" [attr.index]="i" class="item active" [class.active]="i==0" >
                 <!--<img ng-src="{{slide.image}}" style="margin:auto;"> -->
                 <div class="carousel-caption">
+                    <h1>{{slide.sessionName}}</h1>
                     <div class="table">
                         <div>
                             <h2>Slide {{slide.question}}</h2>

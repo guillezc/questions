@@ -2,11 +2,6 @@ var QuestionsVar = function(){
 	return{
 		init: function(){
 			window.setTimeout(function(){
-				function goFullscreen() {
-			        mf = document.getElementById("main_frame");
-			        mf.webkitRequestFullscreen();
-			        mf.style.display="";
-			    }
 
 		    function fullscreenChanged() {
 		        if (document.webkitFullscreenElement == null) {
@@ -16,7 +11,11 @@ var QuestionsVar = function(){
 		    }
 
 		    document.onwebkitfullscreenchange = fullscreenChanged;
-		    document.getElementById("go-to-proyecteds").onclick = goFullscreen;
+		    $("#go-to-proyecteds").on("click", function(){
+		    	mf = document.getElementById("main_frame");
+		        mf.webkitRequestFullscreen();
+		        mf.style.display="";
+		    }) ;
 		    //document.onkeydown = goFullscreen;
 			}, 1000)
 		}

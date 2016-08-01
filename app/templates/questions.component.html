@@ -101,10 +101,13 @@
                         <a href="javascript:;" (click)="removeAll()" class="btn btn-sm sbold green">
                             <i class="fa fa-trash"></i> Borrar
                         </a>
-                        <a [routerLink]="['/proyectar']" target="_blank" class="btn btn-sm sbold green"><i class="fa fa-tv"></i> Proyectar</a>
+                        <!-- <a [routerLink]="['/proyectar']" target="_blank" class="btn btn-sm sbold green"><i class="fa fa-tv"></i> Proyectar</a> -->
+                        <a id="go-to-proyecteds" class="btn btn-sm sbold green"><i class="fa fa-tv"></i> Proyectar</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<iframe id="main_frame" src="#/proyectar" style="width:100%;height:100%;border:none;display:none"></iframe>

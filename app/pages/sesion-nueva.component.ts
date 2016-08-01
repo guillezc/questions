@@ -38,6 +38,13 @@ export class SessionAddComponent implements OnInit {
   }
 
   onSubmit(sess: Session) { 
+
+    sess.allDay = false;
+    sess.startTime = "1468897988198";
+    sess.endTime = "1468897988198";
+    sess.slug = "asdfg";
+    sess.speakers = [];
+    
     this.session = this.firebase.database.list('/sessions');
     this.session.push(sess);
     this.redirectToSessions();

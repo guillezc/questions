@@ -85,10 +85,10 @@
     padding-top: 10px;
 }
 .form-sessions .form-group.form-md-line-input .form-control{
-    height: 28px;
+    height: 30px;
 }
 .form-sessions .form-group.form-md-line-input textarea.form-control{
-    min-height: 56px;
+    min-height: 84px;
     height: auto;
 }
 .page-body .page-header.navbar .page-logo .logo-default{

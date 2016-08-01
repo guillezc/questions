@@ -3,7 +3,8 @@ var ProyectedsVar = function(){
 		updateBody: function(){
 			$("body").addClass("page-proyecteds");
 			$('.carousel').carousel();
-			$(".page-content").css("height", $(".page-content").height())
+			$(".page-content").css("height", $(".page-content").height());
+
 		},
 		clean: function(){
 			$("body").removeClass("page-proyecteds");

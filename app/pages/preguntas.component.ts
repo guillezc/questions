@@ -6,6 +6,9 @@ import { Title } from '@angular/platform-browser';
 
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
+declare var QuestionsVar: any;
+import  'app/js/questions.js';
+
 @Component({
   selector: 'q-questions',
   templateUrl: 'app/templates/questions.component.html',
@@ -57,6 +60,7 @@ export class QuestionsComponent implements OnInit {
     this.globalQuests = this.firebase.database.object('/questions', { preserveSnapshot: true });
   	this.getQuestions();
     this.getSessions();
+    QuestionsVar.init();
   }
 
   addToSelecteds(q: any){

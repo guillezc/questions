@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 import { LocalStorage, SessionStorage } from "angular2-localstorage/WebStorage";
 import { NgForm } from '@angular/forms';
@@ -6,6 +6,7 @@ import { Logger } from '../logger';
 import { ObjToArrPipe } from '../pipes/objToArr.pipe';
 import { Session }  from '../classes/session';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'q-sessions-add',
@@ -14,7 +15,7 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
   pipes: [ObjToArrPipe]
 })
 
-export class SessionAddComponent {
+export class SessionAddComponent implements OnInit {
   addObj: Session = new Session();
   session: FirebaseListObservable<any>;
   firebase: AngularFire;  
@@ -23,16 +24,17 @@ export class SessionAddComponent {
     private router         : Router,
     private route          : ActivatedRoute,
     private logger         : Logger,
-    private angFire        : AngularFire) {
+    private angFire        : AngularFire,
+    private titleService   : Title) {
   		this.firebase = angFire;
   }
 
-  ngOnInit() {
-     
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
-  ngOnDestroy() {
-
+  ngOnInit() {
+     this.setTitle("Agregar sesión - México Cumbre de Negocios");
   }
 
   onSubmit(sess: Session) { 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { LocalStorage, SessionStorage } from "angular2-localstorage/WebStorage";
 import { Logger } from '../logger';
+import { Title } from '@angular/platform-browser';
 
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
@@ -24,8 +25,13 @@ export class QuestionsComponent implements OnInit {
   constructor(
     private router         : Router,
     private logger         : Logger,
-    private angFire        : AngularFire) {
+    private angFire        : AngularFire,
+    private titleService   : Title) {
   		this.firebase = angFire;
+  }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   getQuestions(){
@@ -47,6 +53,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setTitle("Preguntas - México Cumbre de Negocios");
     this.globalQuests = this.firebase.database.object('/questions', { preserveSnapshot: true });
   	this.getQuestions();
     this.getSessions();

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { LocalStorage, SessionStorage } from "angular2-localstorage/WebStorage";
 import { Logger } from '../logger';
-
+import { Title } from '@angular/platform-browser';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
@@ -18,8 +18,13 @@ export class RatingsComponent implements OnInit {
   constructor(
     private router         : Router,
     private logger         : Logger,
-    private angFire        : AngularFire) {
+    private angFire        : AngularFire,
+    private titleService   : Title) {
   		this.firebase = angFire;
+  }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   getSessions(){
@@ -28,6 +33,7 @@ export class RatingsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setTitle("Votaciones - México Cumbre de Negocios");
   	this.getSessions();
   }
 

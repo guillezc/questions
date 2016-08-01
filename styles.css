@@ -91,3 +91,7 @@
     min-height: 56px;
     height: auto;
 }
+.page-body .page-header.navbar .page-logo .logo-default{
+    height: 35px;
+    margin: 7px 0 0;
+}

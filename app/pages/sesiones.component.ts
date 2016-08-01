@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { Logger } from '../logger';
 import { ObjToArrPipe } from '../pipes/objToArr.pipe';
+import { Title } from '@angular/platform-browser';
 
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
@@ -21,12 +22,18 @@ export class SessionsComponent implements OnInit {
   constructor(
     private router         : Router,
     private logger         : Logger,
-    private angFire        : AngularFire) {
+    private angFire        : AngularFire,
+    private titleService   : Title) {
   		this.firebase = angFire;
+  }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   ngOnInit() {
   	this.getSessions();
+    this.setTitle("Sesiones - México Cumbre de Negocios");
   }
 
   getSessions(){

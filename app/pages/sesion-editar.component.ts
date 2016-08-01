@@ -6,6 +6,7 @@ import { Logger } from '../logger';
 import { ObjToArrPipe } from '../pipes/objToArr.pipe';
 import { Session }  from '../classes/session';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'q-sessions-edit',
@@ -14,7 +15,7 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
   pipes: [ObjToArrPipe]
 })
 
-export class SessionEditComponent {
+export class SessionEditComponent implements OnInit{
   sessionObj: Session = new Session();
   session: FirebaseObjectObservable<any>;
   firebase: AngularFire;
@@ -25,11 +26,17 @@ export class SessionEditComponent {
     private router         : Router,
     private route          : ActivatedRoute,
     private logger         : Logger,
-    private angFire        : AngularFire) {
+    private angFire        : AngularFire,
+    private titleService   : Title) {
   		this.firebase = angFire;
   }
 
-    ngOnInit() {
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle( newTitle );
+  }
+
+  ngOnInit() {
+    this.setTitle("Editar sesión - México Cumbre de Negocios");
     this.sub = this.route.params.subscribe(params => {
       let id = params['id'];
       this.getSession(id);
@@ -42,8 +49,10 @@ export class SessionEditComponent {
   }
 
   onSubmit(sess: Session) { 
-    this.submitted = true;
+    this.submitted = false;
     this.session.update(sess);
+    let link = ['/sesiones'];
+    this.router.navigate(link);
   }
 
   getSession(idSession: any){

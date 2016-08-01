@@ -1,4 +1,5 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
+
 import { Title } from '@angular/platform-browser';
 import {FIREBASE_PROVIDERS, 
         defaultFirebase, 
@@ -51,6 +52,7 @@ class MainComponent {
   }
 }
 
+enableProdMode();
 var appPromise = bootstrap(MainComponent, [
   appRouterProviders,
   FIREBASE_PROVIDERS,

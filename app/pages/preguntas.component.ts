@@ -13,6 +13,7 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
 
 export class QuestionsComponent implements OnInit {
   //@SessionStorage() public proyecteds:Array<any> = [];
+  globalQuests: FirebaseObjectObservable<any[]>;
   questions: FirebaseListObservable<any[]>;
   filter: FirebaseObjectObservable<any>;
   sessions: FirebaseListObservable<any[]>;
@@ -46,17 +47,20 @@ export class QuestionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.globalQuests = this.firebase.database.object('/questions', { preserveSnapshot: true });
   	this.getQuestions();
     this.getSessions();
   }
 
   addToSelecteds(q: any){
-  	this.questions.update(q.$key, { selected: true });
+    this.globalQuests = this.firebase.database.object('/questions/'+q.$key);
+  	this.globalQuests.update({ selected: true });
     this.getSelecteds();
   }
 
   removeToSelecteds(q: any){
-    this.questions.update(q.$key, { selected: false });
+    this.globalQuests = this.firebase.database.object('/questions/'+q.$key);
+    this.globalQuests.update({ selected: false });
     this.getSelecteds();
   }
 
@@ -66,7 +70,9 @@ export class QuestionsComponent implements OnInit {
     this.removes
     .subscribe(snapshots => {
       snapshots.forEach(snapshot => {
-        this.removes.update(snapshot.key, { selected: false });
+        this.globalQuests = this.firebase.database.object('/questions/'+snapshot.key);
+        this.globalQuests.update({ selected: false });
+        //this.removes.update(snapshot.key, { selected: false });
       });
     })
     this.getQuestions();
@@ -85,10 +91,16 @@ export class QuestionsComponent implements OnInit {
           equalTo: session.value
         }
       });
+      this.questions.subscribe(data => {
+        this.filter = this.firebase.database.object('/sessions/'+session.value);
+      });
     }else{
       this.questions = this.firebase.database.list('questions');
+      this.questions.subscribe(data => {
+        this.filter = this.firebase.database.object('/sessions/'+session.value);
+      });
     }
-    this.filter = this.firebase.database.object('/sessions/'+session.value);
+    
   }
 
 }

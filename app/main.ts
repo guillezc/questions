@@ -1,6 +1,7 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { FIREBASE_PROVIDERS, defaultFirebase } from 'angularfire2';
 import {LocalStorageService, LocalStorageSubscriber} from 'angular2-localstorage/LocalStorageEmitter';
+import { disableDeprecatedForms, provideForms } from '@angular/forms';
 import { Logger } from './logger';
 
 import { Component } from '@angular/core';
@@ -48,7 +49,9 @@ var appPromise = bootstrap(MainComponent, [
     storageBucket: "questions-16537.appspot.com"
   }),
   {provide: LocationStrategy, useClass: HashLocationStrategy},
-  {provide: Logger, useClass: Logger}
+  {provide: Logger, useClass: Logger},
+  disableDeprecatedForms(),
+  provideForms()
 ]).catch(err => console.error(err));
 
 LocalStorageSubscriber(appPromise);

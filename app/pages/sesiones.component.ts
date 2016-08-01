@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router';
-import { LocalStorage, SessionStorage } from "angular2-localstorage/WebStorage";
 import { Logger } from '../logger';
 import { ObjToArrPipe } from '../pipes/objToArr.pipe';
 
@@ -15,11 +14,8 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
 
 export class SessionsComponent implements OnInit {
 
-  questions: FirebaseListObservable<any[]>;
-  filter: FirebaseObjectObservable<any>;
   sessions: FirebaseListObservable<any[]>;
-  proyecteds: FirebaseListObservable<any[]>;
-  removes: FirebaseListObservable<any[]>;
+  removes: FirebaseObjectObservable<any[]>;
   firebase: AngularFire;
 
   constructor(
@@ -35,6 +31,21 @@ export class SessionsComponent implements OnInit {
 
   getSessions(){
     this.sessions = this.firebase.database.list('sessions');
+  }
+
+  addSession(){
+    let link = ['/sesion/nueva'];
+    this.router.navigate(link);
+  }
+
+  editSession(session: any){
+  	let link = ['/sesion/editar', session.$key];
+    this.router.navigate(link);
+  }
+
+  deleteSession(session: any){
+  	this.removes = this.firebase.database.object('/sessions/'+session.$key);
+  	this.removes.remove();
   }
 
 }

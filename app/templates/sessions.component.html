@@ -42,8 +42,8 @@
                                 <td>{{ session.startTime | date:"dd MMM y - H:mm" }}</td>
                                 <td>{{ session.endTime | date:"dd MMM y - H:mm" }}</td>
                                 <td>
+                                	<input type="hidden" value="{{ session.$key }}" #sessionId>
                                     <a href="javascript:;" (click)="editSession(session)" class="btn btn-circle btn-icon-only btn-default"><i class="fa fa-edit"></i></a>
-                                    <a href="javascript:;" (click)="viewSession(session)" class="btn btn-circle btn-icon-only btn-default"><i class="fa fa-eye"></i></a>
                                     <a href="javascript:;" (click)="deleteSession(session)" class="btn btn-circle btn-icon-only btn-default"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -54,3 +54,6 @@
         </div>
     </div>
 </div>
+
+
+

@@ -1,0 +1,74 @@
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a [routerLink]="['/sesiones']">Sesiones</a>
+            <i class="fa fa-circle"></i>
+            <span>Editar</span>
+        </li>
+    </ul>
+</div>
+<h3 class="page-title"> {{ sessionObj.title  }} </h3>
+<div class="row">
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-body">
+				<form [hidden]="submitted" (ngSubmit)="onSubmit(sessionData.value)" #sessionData="ngForm" class="form-sessions">
+					<div class="form-body">
+						<div class="form-group form-md-line-input">
+							<label for="title">Título <span class="required" aria-required="true">*</span></label>
+							<input type="text" name="title" class="form-control" [ngModel]="sessionObj.title">
+							<span class="help-block">Ingrese el título para la sesión</span>
+						</div>
+						<div class="form-group form-md-line-input">
+							<label>Descripción <span class="required" aria-required="true">*</span></label>
+							<textarea name="description" class="form-control" [ngModel]="sessionObj.description"></textarea>
+							<span class="help-block">Ingrese la descripción para la sesión</span>
+						</div>
+						<div class="form-group form-md-line-input">
+							<label>Locación <span class="required" aria-required="true">*</span></label>
+							<input type="text" name="location" class="form-control" [ngModel]="sessionObj.location">
+							<span class="help-block">Ingrese la locación para la sesión</span>
+						</div>
+						<div class="form-group form-md-line-input">
+							<label>URL amigable <span class="required" aria-required="true">*</span></label>
+							<input type="text" class="form-control" name="slug" [ngModel]="sessionObj.slug">
+							<span class="help-block">Ingrese la url de la sesión</span>
+						</div>
+					</div>
+					<div class="form-actions">
+						<div class="row">
+				            <div class="col-md-12">
+				                <button type="submit" class="btn green">Guardar <i class="fa fa-save"></i></button>
+				                <a [routerLink]="['/sesiones']" class="btn default">Regresar <i class="fa fa-save"></i></a>
+				            </div>
+				        </div>
+					</div>
+				</form>
+				<div [hidden]="!submitted" class="sessions-details">
+					<div class="row">
+				      <div class="col-xs-3"><strong>Título</strong></div>
+				      <div class="col-xs-9  pull-left">{{ sessionObj.title }}</div>
+				    </div>
+				    <br>
+				    <div class="row">
+				      <div class="col-xs-3"><strong>Descripción</strong></div>
+				      <div class="col-xs-9 pull-left">{{ sessionObj.description }}</div>
+				    </div>
+				    <br>
+				    <div class="row">
+				      <div class="col-xs-3"><strong>Locación</strong></div>
+				      <div class="col-xs-9 pull-left">{{ sessionObj.location }}</div>
+				    </div>
+				    <br>
+				    <div class="row">
+				      <div class="col-xs-3"><strong>URL amigable</strong></div>
+				      <div class="col-xs-9 pull-left">{{ sessionObj.slug }}</div>
+				    </div>
+				    <br>
+				    <button class="btn sbold green" (click)="submitted=false">Edit <i class="fa fa-edit"></i></button>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>

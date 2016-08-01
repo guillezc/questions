@@ -1,0 +1,33 @@
+
+<form (ngSubmit)="onSubmit()" #sessionData="ngForm" class="form-sessions">
+	<div class="form-body">
+		<div class="form-group form-md-line-input">
+			<label for="title">Título <span class="required" aria-required="true">*</span></label>
+			<input type="text" name="title" class="form-control" [ngModel]="sessionObj.title" #title="ngModel">
+			<span class="help-block">Ingrese el título para la sesión</span>
+		</div>
+		<div class="form-group form-md-line-input">
+			<label>Descripción <span class="required" aria-required="true">*</span></label>
+			<textarea name="description" class="form-control" [ngModel]="sessionObj.description"></textarea>
+			<span class="help-block">Ingrese la descripción para la sesión</span>
+		</div>
+		<div class="form-group form-md-line-input">
+			<label>Locación <span class="required" aria-required="true">*</span></label>
+			<input type="text" name="location" class="form-control" [ngModel]="sessionObj.location">
+			<span class="help-block">Ingrese la locación para la sesión</span>
+		</div>
+		<div class="form-group form-md-line-input">
+			<label>URL amigable <span class="required" aria-required="true">*</span></label>
+			<input type="text" name="slug" class="form-control" [ngModel]="sessionObj.slug">
+			<span class="help-block">Ingrese la url de la sesión</span>
+		</div>
+	</div>
+	<div class="form-actions">
+		<div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="btn green">Guardar</button>
+                <button type="reset" class="btn default">Regresar</button>
+            </div>
+        </div>
+	</div>
+</form>

@@ -5,6 +5,8 @@ import { QuestionsComponent } from './pages/preguntas.component';
 import { ProyectedComponent } from './pages/proyectar.component';
 import { RatingsComponent } from './pages/votaciones.component';
 import { SessionsComponent } from './pages/sesiones.component';
+import { SessionEditComponent } from './pages/sesion-editar.component';
+import { SessionAddComponent } from './pages/sesion-nueva.component';
 
 const routes: RouterConfig = [
   {
@@ -31,6 +33,14 @@ const routes: RouterConfig = [
   {
     path: 'sesiones',
     component: SessionsComponent
+  },
+  {
+    path: 'sesion/editar/:id',
+    component: SessionEditComponent
+  },
+  {
+    path: 'sesion/nueva',
+    component: SessionAddComponent
   }
 ];
 

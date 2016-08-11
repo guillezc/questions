@@ -3,6 +3,7 @@ import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { Logger } from '../logger';
 import { ObjToArrPipe } from '../pipes/objToArr.pipe';
 import { Title } from '@angular/platform-browser';
+import { Session }  from '../classes/session';
 
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, AuthProviders, AuthMethods } from 'angularfire2';
 
@@ -16,8 +17,8 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, AuthProv
 export class SessionsComponent implements OnInit {
 
   sessions: FirebaseListObservable<any[]>;
-  removes: FirebaseObjectObservable<any[]>;
   firebase: AngularFire;
+  sessionList: Session[] = [];
 
   constructor(
     private router         : Router,
@@ -38,6 +39,9 @@ export class SessionsComponent implements OnInit {
 
   getSessions(){
     this.sessions = this.firebase.database.list('sessions');
+    this.sessions.subscribe(data => {
+      this.sessionList = data;
+    });
   }
 
   addSession(){
@@ -45,14 +49,13 @@ export class SessionsComponent implements OnInit {
     this.router.navigate(link);
   }
 
-  editSession(session: any){
+  editSession(session: Session){
   	let link = ['/sesion/editar', session.$key];
     this.router.navigate(link);
   }
 
-  deleteSession(session: any){
-  	this.removes = this.firebase.database.object('/sessions/'+session.$key);
-  	this.removes.remove();
+  deleteSession(session: Session){
+  	this.firebase.database.object('/sessions/'+session.$key).remove();
   }
 
 }

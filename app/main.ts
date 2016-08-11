@@ -8,10 +8,10 @@ import {FIREBASE_PROVIDERS,
         AuthProviders, 
         firebaseAuthConfig} from 'angularfire2';
 import {LocalStorageService, LocalStorageSubscriber} from 'angular2-localstorage/LocalStorageEmitter';
-import { disableDeprecatedForms, provideForms } from '@angular/forms';
+import { disableDeprecatedForms, provideForms, REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
 import { Logger } from './logger';
 
-import { Component, enableProdMode } from '@angular/core';
+import { Component, enableProdMode, provide, PLATFORM_DIRECTIVES } from '@angular/core';
 import { HeaderComponent } from './header.component';
 import { SidebarComponent } from './sidebar.component';
 
@@ -61,6 +61,10 @@ var appPromise = bootstrap(MainComponent, [
     authDomain: "events-7d50b.firebaseapp.com",
     databaseURL: "https://events-7d50b.firebaseio.com",
     storageBucket: "events-7d50b.appspot.com"
+    /*apiKey: "AIzaSyB5ZUgBJabSy-F18lNUiyqmb0xy72oFCx4",
+    authDomain: "questions-16537.firebaseapp.com",
+    databaseURL: "https://questions-16537.firebaseio.com",
+    storageBucket: "questions-16537.appspot.com",*/
   }),
   firebaseAuthConfig({
     provider: AuthProviders.Anonymous,
@@ -70,6 +74,7 @@ var appPromise = bootstrap(MainComponent, [
   {provide: Logger, useClass: Logger},
   disableDeprecatedForms(),
   provideForms(),
+  {provide: PLATFORM_DIRECTIVES, useValue: [REACTIVE_FORM_DIRECTIVES], multi: true},
   Title
 ]).catch(err => console.error(err));
 

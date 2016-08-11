@@ -33,7 +33,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let session of sessions | async">
+                            <tr *ngFor="let session of sessionList">
                                 <td>{{ session.title | slice:0:50 }} <span *ngIf="session.title.length > 50">...</span></td>
                                 <td>{{ session.description | slice:0:60 }} <span *ngIf="session.description.length > 60">...</span></td>
                                 <td>

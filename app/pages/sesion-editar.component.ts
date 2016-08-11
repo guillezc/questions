@@ -1,26 +1,58 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CORE_DIRECTIVES } from '@angular/common';
 import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 import { LocalStorage, SessionStorage } from "angular2-localstorage/WebStorage";
 import { NgForm } from '@angular/forms';
 import { Logger } from '../logger';
 import { ObjToArrPipe } from '../pipes/objToArr.pipe';
 import { Session }  from '../classes/session';
+import { Speaker }  from '../classes/speaker';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { Title } from '@angular/platform-browser';
+import { NKDatetime } from 'ng2-datetime/ng2-datetime';
+import { SELECT_DIRECTIVES } from 'ng2-select/ng2-select';
+import { TagInput } from 'ng2-tag-input';
+
+import  'app/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js';
+import  'app/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.js';
 
 @Component({
   selector: 'q-sessions-edit',
   templateUrl: 'app/templates/session-edit.component.html',
-  directives: [ROUTER_DIRECTIVES],
+  directives: [ROUTER_DIRECTIVES, NKDatetime, SELECT_DIRECTIVES, TagInput, CORE_DIRECTIVES],
   pipes: [ObjToArrPipe]
 })
 
 export class SessionEditComponent implements OnInit{
   sessionObj: Session = new Session();
   session: FirebaseObjectObservable<any>;
+  speakerItems: Array<any> = [];
+  speakerSelect: Array<any> = [];
+  tagItems: Array<any> = [];
   firebase: AngularFire;
   submitted = false;
   sub: any;
+  sessionID: any;
+
+  timepickerStartOpts: any = {
+    minuteStep: 1
+  };
+
+  timepickerEndOpts: any = {
+    minuteStep: 1
+  };
+
+  datepickerStartOpts: any = {
+    autoclose: true,
+    todayBtn: 'linked',
+    todayHighlight: true
+  };
+
+  datepickerEndOpts: any = {
+    autoclose: true,
+    todayBtn: 'linked',
+    todayHighlight: true
+  };
 
   constructor(
     private router         : Router,
@@ -38,29 +70,76 @@ export class SessionEditComponent implements OnInit{
   ngOnInit() {
     this.setTitle("Editar sesión - México Cumbre de Negocios");
     this.sub = this.route.params.subscribe(params => {
-      let id = params['id'];
-      this.getSession(id);
+      this.sessionID = params['id'];
+      this.getSession(this.sessionID);
     });
-     
+
+    this.firebase.database.list('speakers').subscribe(data => {
+      this.speakerItems = this.setSpeakersItems(data);
+    });
+
+    this.tagItems = ['Typescript', 'Angular2'];
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
 
-  onSubmit(sess: Session) { 
+  onSubmit(sess: any) { 
     this.submitted = false;
+    sess.startTime = sess.startTime.getTime();
+    sess.endTime = sess.endTime.getTime();
     this.session.update(sess);
     let link = ['/sesiones'];
     this.router.navigate(link);
   }
 
-  getSession(idSession: any){
+  getSession(idSession: string){
     this.session = this.firebase.database.object('/sessions/'+idSession);
     this.session.subscribe(data => {
+      this.speakerSelect = this.setSpeakerSelecteds(data.speakers);
+      this.tagItems = data.tags;
+      data.startTime = new Date(data.startTime);
+      data.endTime = new Date(data.endTime);
       this.sessionObj = data;
     });
+  }
+
+  setSpeakerSelecteds(speakers: any[]){
     
+    let items: Array<any> = [];
+    for (var key in speakers) {
+      if (speakers.hasOwnProperty(key)) {
+        items.push({id: key, text: speakers[key].name});
+      }
+    }
+
+    return items;
+  }
+
+  setSpeakersItems(speakers: Speaker[]){
+    
+    let items: Array<any> = [];
+    speakers.forEach((spk: Speaker) => {
+      items.push( {
+        id  : spk.$key,
+        text: spk.name
+      });
+    });
+
+    return items;
+  }
+
+  addSpeaker(value:any):void {
+     this.firebase.database.object('/speakers/'+value.id).subscribe(data => {
+      delete data['$key'];
+      this.firebase.database.list('sessions/'+this.sessionID+'/speakers').push(data);
+    });
+    
+  }
+
+  removeSpeaker(value:any):void {
+    this.firebase.database.list('sessions/'+this.sessionID+'/speakers').remove(value.id);
   }
 
   get diagnostic() { return JSON.stringify(this.sessionObj); }

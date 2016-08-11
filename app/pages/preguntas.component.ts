@@ -19,13 +19,10 @@ import  'app/js/questions.js';
 })
 
 export class QuestionsComponent implements OnInit {
-  //@SessionStorage() public proyecteds:Array<any> = [];
-  globalQuests: FirebaseObjectObservable<any[]>;
   questions: FirebaseListObservable<any[]>;
   filter: FirebaseObjectObservable<any>;
   sessions: FirebaseListObservable<any[]>;
   proyecteds: FirebaseListObservable<any[]>;
-  removes: FirebaseListObservable<any[]>;
 
   questionsObj: Question = new Question();
   questionsListSelected: Question[] = [];
@@ -64,6 +61,7 @@ export class QuestionsComponent implements OnInit {
     });
     this.proyecteds.subscribe(data => {
       this.questionsListSelected = data;
+      this.logger.log(data);
       QuestionsVar.init();  
     });
   }

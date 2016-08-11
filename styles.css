@@ -82,7 +82,7 @@
     padding: 4px 3px;
 }
 .form-sessions .form-group.form-md-line-input{
-    margin: 0 0 25px;
+    margin: 0 0 12px;
     padding-top: 10px;
 }
 .form-sessions .form-group.form-md-line-input .form-control{
@@ -95,4 +95,71 @@
 .page-body .page-header.navbar .page-logo .logo-default{
     height: 35px;
     margin: 7px 0 0;
+}
+.form-sessions .input-group-addon>i{
+    color: #333;
+}
+.datepicker table tr td.old {
+    background: #f4f4f4;
+}
+.datepicker table tr td.new{
+    background: #BBE9ED;
+}
+.datepicker table tr td.new:hover{
+    background: #AEE1E6;
+}
+.datepicker table th.prev,
+.datepicker table th.next,
+.datepicker table th.datepicker-switch{
+    background: #2b3643;
+    color: #fff;
+}
+.datepicker table th.prev:hover,
+.datepicker table th.next:hover,
+.datepicker table th.datepicker-switch:hover{
+    background: #3C4A5C;
+    color: #fff;
+}
+.form-sessions .ui-select-match-item{
+    color: #FFF;
+    background-color: #32c5d2;
+    border-color: #32c5d2;
+    padding: 4px 6px;
+}
+.form-sessions .ui-select-match-item:hover{
+    background-color: #26a1ab;
+    border-color: #2499a3;
+}
+.form-sessions .ui-select-multiple.ui-select-bootstrap{
+    padding: 0;
+}
+.form-sessions .tag-input{
+    border-bottom: 1px solid #c2cad8;
+    height: 30px;
+    min-height: 30px;
+    padding: 0;
+}
+.form-sessions .tag-input .tag{
+    margin: 0 5px 3px 0;
+    padding: 4px 6px;
+    height: 27px;
+    line-height: 20px;
+    color: #666;
+    background-color: #e1e5ec;
+    border-color: #e1e5ec;
+    border-left: 4px solid #32c5d2!important;
+    font-size: 12px;
+    border-radius: 3px!important;
+    -moz-border-radius: 3px!important;
+}
+.form-sessions .tag-input .tag:hover{
+    background-color: #CCD4E0 !important;
+}
+.form-sessions .tag-input .tag-input__text-input{
+    height: 26px;
+}
+.form-sessions .tag-input .tag .tag__remove-button{
+    width: 14px;
+    height: 14px;
+    color: #fff;
 }

@@ -37,7 +37,7 @@ export class SessionAddComponent implements OnInit {
      this.setTitle("Agregar sesión - México Cumbre de Negocios");
   }
 
-  onSubmit(sess: Session) { 
+  onSubmit(sess: any) { 
 
     sess.allDay = false;
     sess.startTime = "1468897988198";

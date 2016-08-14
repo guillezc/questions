@@ -77,8 +77,6 @@ export class SessionEditComponent implements OnInit{
     this.firebase.database.list('speakers').subscribe(data => {
       this.speakerItems = this.setSpeakersItems(data);
     });
-
-    this.tagItems = ['Typescript', 'Angular2'];
   }
 
   ngOnDestroy() {
@@ -89,6 +87,7 @@ export class SessionEditComponent implements OnInit{
     this.submitted = false;
     sess.startTime = sess.startTime.getTime();
     sess.endTime = sess.endTime.getTime();
+
     this.session.update(sess);
     let link = ['/sesiones'];
     this.router.navigate(link);

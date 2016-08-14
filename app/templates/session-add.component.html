@@ -13,7 +13,7 @@
         <!-- Begin: life time stats -->
         <div class="portlet light portlet-fit portlet-datatable bordered">
             <div class="portlet-body">
-				<form (ngSubmit)="onSubmit(sessionData.value)" #sessionData="ngForm" class="form-sessions">
+				<form method="post" (ngSubmit)="onSubmit(sessionData.value)" #sessionData="ngForm" class="form-sessions">
 					<div class="form-body">
 						<div class="form-group form-md-line-input">
 							<label for="day">Día <span class="required" aria-required="true">*</span></label>
@@ -29,41 +29,78 @@
 							<span class="help-block">Ingrese el título para la sesión</span>
 						</div>
 						<div class="form-group form-md-line-input">
-							<label>Descripción <span class="required" aria-required="true">*</span></label>
+							<label for="description">Descripción <span class="required" aria-required="true">*</span></label>
 							<textarea name="description" class="form-control" [ngModel]="addObj.description"></textarea>
 							<span class="help-block">Ingrese la descripción para la sesión</span>
 						</div>
 						<div class="form-group form-md-line-input">
-							<label>Locación <span class="required" aria-required="true">*</span></label>
+							<label for="location">Locación <span class="required" aria-required="true">*</span></label>
 							<input type="text" name="location" class="form-control" [ngModel]="addObj.location">
 							<span class="help-block">Ingrese la locación para la sesión</span>
 						</div>
-						<!--<div class="form-group form-md-line-input" style="display: none;">
-							<label>allday <span class="required" aria-required="true">*</span></label>
-							<input type="text" name="allday" class="form-control" [ngModel]="addObj.allday">
-							<span class="help-block">Ingrese la locación para la sesión</span>
+						<div class="form-group form-md-line-input">
+							<div class="row">
+								<div class="col-md-6">
+									<label>Inicio <span class="required" aria-required="true">*</span></label>
+									<datetime [timepicker]="timepickerStartOpts" [datepicker]="datepickerStartOpts" [ngModel]='addObj.startTime' name="startTime"></datetime>
+									<span class="help-block">Ingrese la fecha y hora del inicio para la sesión</span>
+								</div>
+								<div class="col-md-6">
+									<label>Fin <span class="required" aria-required="true">*</span></label>
+									<datetime [timepicker]="timepickerEndOpts" [datepicker]="datepickerEndOpts" [ngModel]='addObj.endTime' name="endTime"></datetime>
+									<span class="help-block">Ingrese la fecha y hora del final para la sesión</span>
+								</div>
+							</div>			
 						</div>
-						<div class="form-group form-md-line-input" style="display: none;">
-							<label>startTime <span class="required" aria-required="true">*</span></label>
-							<input type="text" name="startTime" class="form-control" [ngModel]="addObj.startTime">
-							<span class="help-block">Ingrese la locación para la sesión</span>
+						<div class="form-group form-md-line-input" *ngIf="speakers | async">
+							<label for="speakers">Conferencistas <span class="required" aria-required="true">*</span></label>
+							<ng-select [allowClear]="true" [items]="speakerItems"
+									   [initData]="speakerSelect"
+						               [multiple]="true"
+									   (selected)="addSpeaker($event)"
+              						   (removed)="removeSpeaker($event)"
+						               placeholder="Seleccione uno o varios">
+						    </ng-select>
 						</div>
-						<div class="form-group form-md-line-input" style="display: none;">
-							<label>endTime <span class="required" aria-required="true">*</span></label>
-							<input type="text" name="endTime" class="form-control" [ngModel]="addObj.endTime">
-							<span class="help-block">Ingrese la locación para la sesión</span>
+						<div class="form-group form-md-line-input" *ngIf="speakers | async">
+							<label for="tags">Etiquetas <span class="required" aria-required="true">*</span></label>
+							<tag-input [ngModel]="addObj.tags"
+										separatorKeys="[32]"
+										name="tags"
+										placeholder="Agregar etiqueta"></tag-input>
 						</div>
-						<div class="form-group form-md-line-input" style="display: none;">
-							<label>speakers <span class="required" aria-required="true">*</span></label>
-							<input type="text" name="speakers" class="form-control" [ngModel]="addObj.speakers">
-							<span class="help-block">Ingrese la locación para la sesión</span>
-						</div> -->
+						
+						<div class="form-group form-md-line-input form-md-checkboxes">
+							<div class="md-checkbox-inline">
+                                <div class="md-checkbox">
+                                    <input name="allDay" type="checkbox" [ngModel]="addObj.allDay" id="allDay" class="md-check">
+                                    <label for="allDay">
+                                    <span></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span> Todos los días </label>
+                                </div>
+                                <div class="md-checkbox">
+                                    <input name="hasDetails" type="checkbox" [ngModel]="addObj.hasDetails" id="hasDetails" class="md-check">
+                                    <label for="hasDetails">
+                                    <span></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span> Tiene Detalles </label>
+                                </div>
+                                <div class="md-checkbox">
+                                    <input name="onMySchedule" type="checkbox" [ngModel]="addObj.onMySchedule" id="onMySchedule" class="md-check">
+                                    <label for="onMySchedule">
+                                    <span></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span> En mi agenda </label>
+                                </div>
+							</div>
+						</div>
 					</div>
 					<div class="form-actions">
 						<div class="row">
 				            <div class="col-md-12 text-right">
-				                <button type="submit" class="btn green">Guardar <i class="fa fa-save"></i></button>
-				                <a [routerLink]="['/sesiones']" class="btn default">Regresar <i class="fa fa-save"></i></a>
+				                <button type="submit" class="btn green"><i class="fa fa-save"></i> Crear sesión</button>
+				                <a [routerLink]="['/sesiones']" class="btn default"><i class="fa fa-arrow-left"></i> Regresar</a>
 				            </div>
 				        </div>
 					</div>

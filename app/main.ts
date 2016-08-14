@@ -57,14 +57,14 @@ var appPromise = bootstrap(MainComponent, [
   appRouterProviders,
   FIREBASE_PROVIDERS,
   defaultFirebase({
-    /*apiKey: "AIzaSyCTfrqErjXXuOPAPWK4AOJBLu3tg2-dJx8",
+    apiKey: "AIzaSyCTfrqErjXXuOPAPWK4AOJBLu3tg2-dJx8",
     authDomain: "events-7d50b.firebaseapp.com",
     databaseURL: "https://events-7d50b.firebaseio.com",
-    storageBucket: "events-7d50b.appspot.com"*/
-    apiKey: "AIzaSyB5ZUgBJabSy-F18lNUiyqmb0xy72oFCx4",
+    storageBucket: "events-7d50b.appspot.com"
+    /*apiKey: "AIzaSyB5ZUgBJabSy-F18lNUiyqmb0xy72oFCx4",
     authDomain: "questions-16537.firebaseapp.com",
     databaseURL: "https://questions-16537.firebaseio.com",
-    storageBucket: "questions-16537.appspot.com",
+    storageBucket: "questions-16537.appspot.com",*/
   }),
   firebaseAuthConfig({
     provider: AuthProviders.Anonymous,

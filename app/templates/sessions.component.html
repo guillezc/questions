@@ -24,23 +24,30 @@
                     <table class="table table-striped table-bordered table-hover" id="datatable_sessions">
                         <thead>
                             <tr role="row" class="heading">
-                                <th width="20%"> Título </th>
-                                <th width="25%"> Descripción </th>
-                                <th width="15%"> Exponente </th>
-                                <th width="15%"> Inicio </th>
-                                <th width="15%"> Fin </th>
+                                <th width="15%">Hora Inicio -  Fin</th>
+                                <th width="15%">Salón</th>
+                                <th width="15%"> Título </th>
+                                <th width="15%"> Oradores </th>
+                                <th width="15%"> Moderadores </th>
+                                <th width="15%"> Brief </th>
                                 <th width="10%">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let session of sessionList">
-                                <td>{{ session.title | slice:0:50 }} <span *ngIf="session.title.length > 50">...</span></td>
-                                <td>{{ session.description | slice:0:60 }} <span *ngIf="session.description.length > 60">...</span></td>
-                                <td>
-                                	<span *ngFor="let speaker of session.speakers | objToArr">{{ speaker.name }} <br/></span>
+                                <td>{{ session.startTime | date:"dd MMM y - H:mm" }} <br/>
+                                    {{ session.endTime | date:"dd MMM y - H:mm" }}
                                 </td>
-                                <td>{{ session.startTime | date:"dd MMM y - H:mm" }}</td>
-                                <td>{{ session.endTime | date:"dd MMM y - H:mm" }}</td>
+                                <td>{{ session.location }} </td>
+                                <td>{{ session.title | slice:0:50 }} <span *ngIf="session.title.length > 50">...</span></td>
+                                <!--<td>{{ session.description | slice:0:60 }} <span *ngIf="session.description.length > 60">...</span></td> -->
+                                <td>
+                                	<div *ngFor="let speaker of session.speakers | objToArr"><span *ngIf="speaker.type=='Orador'">{{ speaker.name }} <br/></span></div>
+                                </td>
+                                <td>
+                                    <div *ngFor="let speaker of session.speakers | objToArr"><span *ngIf="speaker.type=='Moderador'">{{ speaker.name }} <br/></span></div>
+                                </td>
+                                <td></td>
                                 <td>
                                 	<input type="hidden" value="{{ session.$key }}" #sessionId>
                                     <a href="javascript:;" (click)="editSession(session)" class="btn btn-circle btn-icon-only btn-default"><i class="fa fa-edit"></i></a>

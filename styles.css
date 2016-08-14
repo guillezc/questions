@@ -163,3 +163,10 @@
     height: 14px;
     color: #fff;
 }
+.form-sessions .form-group > label,
+.form-sessions .md-checkbox > label{
+    font-weight: 600;
+}
+.form-sessions .form-control{
+    color: #959595 !important;
+}

@@ -1,0 +1,54 @@
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a [routerLink]="['/participantes']">Participantes</a>
+            <i class="fa fa-circle"></i>
+            <span>Nuevo</span>
+        </li>
+    </ul>
+</div>
+<h3 class="page-title"> {{ speakerObj.title  }} </h3>
+<div class="row">
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-body">
+				<form method="post" (ngSubmit)="onSubmit(participantData.value)" #participantData="ngForm" class="form-sessions">
+					<div class="form-body">
+						<div class="form-group form-md-line-input">
+							<label for="type">Tipo de participante <span class="required" aria-required="true">*</span></label>
+							<select name="type" class="form-control" [ngModel]="speakerObj.type">
+								<option value="Moderador">Moderador</option>
+								<option value="Orador">Orador</option>
+							</select>
+							<span class="help-block">Escoja el tipo de participante</span>
+						</div>
+						<div class="form-group form-md-line-input">
+							<label for="name">Nombre <span class="required" aria-required="true">*</span></label>
+							<input type="text" name="name" class="form-control" [ngModel]="speakerObj.name">
+							<span class="help-block">Ingrese el nombre para el participante</span>
+						</div>
+						<div class="form-group form-md-line-input">
+							<label for="title">Título <span class="required" aria-required="true">*</span></label>
+							<input type="text" name="title" class="form-control" [ngModel]="speakerObj.title">
+							<span class="help-block">Ingrese el título para el participante</span>
+						</div>
+						<div class="form-group form-md-line-input">
+							<label for="bio">Bio <span class="required" aria-required="true">*</span></label>
+							<textarea name="bio" class="form-control" [ngModel]="speakerObj.bio"></textarea>
+							<span class="help-block">Ingrese la bio para la sesión</span>
+						</div>
+					</div>
+					<div class="form-actions">
+						<div class="row">
+				            <div class="col-md-12 text-right">
+				                <button type="submit" class="btn green"><i class="fa fa-save"></i> Crear participante</button>
+				                <a [routerLink]="['/participantes']" class="btn default"><i class="fa fa-arrow-left"></i> Regresar</a>
+				            </div>
+				        </div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -7,6 +7,9 @@ import { RatingsComponent } from './pages/votaciones.component';
 import { SessionsComponent } from './pages/sesiones.component';
 import { SessionEditComponent } from './pages/sesion-editar.component';
 import { SessionAddComponent } from './pages/sesion-nueva.component';
+import { ParticipantsComponent } from './pages/participantes.component';
+import { ParticipantAddComponent } from './pages/participante-nuevo.component';
+import { ParticipantEditComponent } from './pages/participante-editar.component';
 
 const routes: RouterConfig = [
   {
@@ -41,6 +44,18 @@ const routes: RouterConfig = [
   {
     path: 'sesion/nueva',
     component: SessionAddComponent
+  },
+  {
+    path: 'participantes',
+    component: ParticipantsComponent
+  },
+  {
+    path: 'participante/editar/:id',
+    component: ParticipantEditComponent
+  },
+  {
+    path: 'participante/nuevo',
+    component: ParticipantAddComponent
   }
 ];
 

@@ -1,0 +1,55 @@
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="javascript:void(0);">Participantes</a>
+        </li>
+    </ul>
+</div>
+<h3 class="page-title"> Participantes </h3>
+<div class="row">
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-body">
+            	<div class="table-container posRel">
+            		<div class="table-toolbar questions-toolbar">
+                    	<div class="row">
+	                        <div class="col-md-12">
+	                        	<button id="add-session" (click)="addSpeaker()" class="btn sbold green">
+	                        		Agregar <i class="fa fa-plus"></i>
+                            	</button>
+	                        </div>
+	                    </div>
+                    </div>
+                    <table class="table table-striped table-bordered table-hover" id="datatable_sessions">
+                        <thead>
+                            <tr role="row" class="heading">
+                                <th width="20%"> Nombre </th>
+                                <th width="20%"> Título </th>
+                                <th width="40%"> Bio </th>
+                                <th width="10%"> Tipo </th>
+                                <th width="10%"> Acciones </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let speaker of speakersList">
+                                <td>{{ speaker.name | slice:0:50 }} <span *ngIf="speaker.name.length > 50">...</span></td>
+                                <td>{{ speaker.title | slice:0:50 }} <span *ngIf="speaker.title.length > 50">...</span></td>
+                                <td>{{ speaker.bio | slice:0:60 }} <span *ngIf="speaker.bio.length > 60">...</span></td>
+                                <td>{{ speaker.type }}</td>
+                                <td>
+                                	<input type="hidden" value="{{ speaker.$key }}" #sessionId>
+                                    <a href="javascript:;" (click)="editSpeaker(speaker)" class="btn btn-circle btn-icon-only btn-default"><i class="fa fa-edit"></i></a>
+                                    <a href="javascript:;" (click)="deleteSpeaker(speaker)" class="btn btn-circle btn-icon-only btn-default"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

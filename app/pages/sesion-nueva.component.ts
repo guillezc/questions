@@ -29,8 +29,13 @@ export class SessionAddComponent implements OnInit {
   session: FirebaseListObservable<any>;
   speakers: FirebaseListObservable<any>;
   speakerItems: Array<any> = [];
-  speakerSelect: Array<any> = [];
+  moderators: FirebaseListObservable<any>;
+  moderatorItems: Array<any> = [];
+  orators: FirebaseListObservable<any>;
+  oratorItems: Array<any> = [];
+
   firebase: AngularFire; 
+  isAllDays: Boolean = false;
 
   timepickerStartOpts: any = {
     minuteStep: 1
@@ -69,10 +74,31 @@ export class SessionAddComponent implements OnInit {
      this.setTitle("Agregar sesión - México Cumbre de Negocios");
 
      this.initSession();
+     this.getModerators();
+     this.getOrators();
+  }
 
-     this.speakers = this.firebase.database.list('speakers');
-     this.speakers.subscribe(data => {
-      this.speakerItems = this.setSpeakersItems(data);
+  getModerators(){
+    this.moderators = this.firebase.database.list('speakers', {
+        query: {
+          orderByChild: 'type',
+          equalTo: 'Moderador'
+        }
+      });
+     this.moderators.subscribe(data => {
+      this.moderatorItems = this.setSpeakersItems(data);
+    });
+  }
+
+  getOrators(){
+    this.orators = this.firebase.database.list('speakers', {
+        query: {
+          orderByChild: 'type',
+          equalTo: 'Orador'
+        }
+      });
+     this.orators.subscribe(data => {
+      this.oratorItems = this.setSpeakersItems(data);
     });
   }
 
@@ -93,11 +119,14 @@ export class SessionAddComponent implements OnInit {
     sess.startTime = sess.startTime.getTime();
     sess.endTime = sess.endTime.getTime();
 
+    if(sess.allDay)
+      sess.endTime = sess.startTime
+
     this.session = this.firebase.database.list('/sessions');
     const newID = this.session.push(sess).key;
-    for (var key in this.speakerSelect) {
-      if (this.speakerSelect.hasOwnProperty(key)) {
-        this.firebase.database.list('/sessions/'+newID+'/speakers').push(this.speakerSelect[key]);
+    for (var key in this.speakerItems) {
+      if (this.speakerItems.hasOwnProperty(key)) {
+        this.firebase.database.list('/sessions/'+newID+'/speakers').push(this.speakerItems[key]);
       }
     }
     
@@ -134,12 +163,16 @@ export class SessionAddComponent implements OnInit {
     this.firebase.database.object('/speakers/'+value.id).subscribe(data => {
       var spkID = data['$key'];
       delete data['$key'];
-      this.speakerSelect[spkID] = data;
+      this.speakerItems[spkID] = data;
     });
   }
 
   removeSpeaker(value:any):void {
-    delete this.speakerSelect[value.id];
+    delete this.speakerItems[value.id];
+  }
+
+  validaDias(value:any){
+    this.isAllDays = value ? false : true;
   }
 
   get diagnostic() { return JSON.stringify(this.addObj); }

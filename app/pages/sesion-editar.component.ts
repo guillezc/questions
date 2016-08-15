@@ -26,13 +26,19 @@ import  'app/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.
 export class SessionEditComponent implements OnInit{
   sessionObj: Session = new Session();
   session: FirebaseObjectObservable<any>;
-  speakerItems: Array<any> = [];
+  moderators: FirebaseListObservable<any>;
+  moderatorItems: Array<any> = [];
+  moderatorSelect: Array<any> = [];
+  orators: FirebaseListObservable<any>;
+  oratorItems: Array<any> = [];
+  oratorSelect: Array<any> = [];
   speakerSelect: Array<any> = [];
   tagItems: Array<any> = [];
   firebase: AngularFire;
   submitted = false;
   sub: any;
   sessionID: any;
+  isAllDays: Boolean = false;
 
   timepickerStartOpts: any = {
     minuteStep: 1
@@ -74,8 +80,31 @@ export class SessionEditComponent implements OnInit{
       this.getSession(this.sessionID);
     });
 
-    this.firebase.database.list('speakers').subscribe(data => {
-      this.speakerItems = this.setSpeakersItems(data);
+    this.getModerators();
+    this.getOrators();
+  }
+
+  getModerators(){
+    this.moderators = this.firebase.database.list('speakers', {
+        query: {
+          orderByChild: 'type',
+          equalTo: 'Moderador'
+        }
+      });
+     this.moderators.subscribe(data => {
+      this.moderatorItems = this.setSpeakersItems(data);
+    });
+  }
+
+  getOrators(){
+    this.orators = this.firebase.database.list('speakers', {
+        query: {
+          orderByChild: 'type',
+          equalTo: 'Orador'
+        }
+      });
+     this.orators.subscribe(data => {
+      this.oratorItems = this.setSpeakersItems(data);
     });
   }
 
@@ -87,7 +116,7 @@ export class SessionEditComponent implements OnInit{
     this.submitted = false;
     sess.startTime = sess.startTime.getTime();
     sess.endTime = sess.endTime.getTime();
-
+    this.logger.log(sess);
     this.session.update(sess);
     let link = ['/sesiones'];
     this.router.navigate(link);
@@ -96,11 +125,34 @@ export class SessionEditComponent implements OnInit{
   getSession(idSession: string){
     this.session = this.firebase.database.object('/sessions/'+idSession);
     this.session.subscribe(data => {
-      this.speakerSelect = this.setSpeakerSelecteds(data.speakers);
-      this.tagItems = data.tags;
+      this.getSessionModerators(idSession);
+      this.getSessionOrators(idSession);
+      data.tags = data.tags ? data.tags : [];
       data.startTime = new Date(data.startTime);
       data.endTime = new Date(data.endTime);
       this.sessionObj = data;
+    });
+  }
+
+  getSessionModerators(idSession: any){
+    this.firebase.database.list('sessions/'+idSession+'/speakers', {
+      query: {
+        orderByChild: 'type',
+        equalTo: 'Moderador'
+      }
+    }).subscribe(data => {
+      this.moderatorSelect = this.setSpeakersItems(data);
+    });
+  }
+
+  getSessionOrators(idSession: any){
+    this.firebase.database.list('sessions/'+idSession+'/speakers', {
+      query: {
+        orderByChild: 'type',
+        equalTo: 'Orador'
+      }
+    }).subscribe(data => {
+      this.oratorSelect = this.setSpeakersItems(data);
     });
   }
 
@@ -139,6 +191,10 @@ export class SessionEditComponent implements OnInit{
 
   removeSpeaker(value:any):void {
     this.firebase.database.list('sessions/'+this.sessionID+'/speakers').remove(value.id);
+  }
+
+  validaDias(value:any){
+    this.isAllDays = value ? false : true;
   }
 
   get diagnostic() { return JSON.stringify(this.sessionObj); }

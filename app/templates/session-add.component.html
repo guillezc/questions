@@ -38,6 +38,17 @@
 							<input type="text" name="location" class="form-control" [ngModel]="addObj.location">
 							<span class="help-block">Ingrese la locación para la sesión</span>
 						</div>
+						<div class="form-group form-md-line-input form-md-checkboxes">
+							<div class="md-checkbox-inline">
+                                <div class="md-checkbox">
+                                    <input name="allDay" type="checkbox" [(ngModel)]="addObj.allDay" id="allDay" class="md-check" (change)="validaDias(addObj.allDay)">
+                                    <label for="allDay">
+                                    <span></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span> Todo el día </label>
+                                </div>
+							</div>
+						</div>
 						<div class="form-group form-md-line-input">
 							<div class="row">
 								<div class="col-md-6">
@@ -45,22 +56,36 @@
 									<datetime [timepicker]="timepickerStartOpts" [datepicker]="datepickerStartOpts" [ngModel]='addObj.startTime' name="startTime"></datetime>
 									<span class="help-block">Ingrese la fecha y hora del inicio para la sesión</span>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" [hidden]="isAllDays">
 									<label>Fin <span class="required" aria-required="true">*</span></label>
 									<datetime [timepicker]="timepickerEndOpts" [datepicker]="datepickerEndOpts" [ngModel]='addObj.endTime' name="endTime"></datetime>
 									<span class="help-block">Ingrese la fecha y hora del final para la sesión</span>
 								</div>
 							</div>			
 						</div>
-						<div class="form-group form-md-line-input" *ngIf="speakers | async">
-							<label for="speakers">Conferencistas <span class="required" aria-required="true">*</span></label>
-							<ng-select [allowClear]="true" [items]="speakerItems"
-									   [initData]="speakerSelect"
-						               [multiple]="true"
-									   (selected)="addSpeaker($event)"
-              						   (removed)="removeSpeaker($event)"
-						               placeholder="Seleccione uno o varios">
-						    </ng-select>
+						<div class="form-group form-md-line-input">
+							<div class="row">
+								<div class="col-md-6">
+									<label for="speakers">Oradores <span class="required" aria-required="true">*</span></label>
+									<ng-select [allowClear]="true" [items]="oratorItems"
+											   [initData]="oratorSelect"
+								               [multiple]="true"
+											   (selected)="addSpeaker($event)"
+		              						   (removed)="removeSpeaker($event)"
+								               placeholder="Seleccione uno o varios">
+								    </ng-select>
+								</div>
+								<div class="col-md-6">
+									<label for="speakers">Moderadores</label>
+									<ng-select [allowClear]="true" [items]="moderatorItems"
+											   [initData]="moderatorSelect"
+								               [multiple]="true"
+											   (selected)="addSpeaker($event)"
+		              						   (removed)="removeSpeaker($event)"
+								               placeholder="Seleccione uno o varios">
+								    </ng-select>
+								</div>
+							</div>
 						</div>
 						<div class="form-group form-md-line-input" *ngIf="speakers | async">
 							<label for="tags">Temas <span class="required" aria-required="true">*</span></label>
@@ -70,31 +95,6 @@
 										placeholder="Agregar etiqueta"></tag-input>
 						</div>
 						
-						<div class="form-group form-md-line-input form-md-checkboxes">
-							<div class="md-checkbox-inline">
-                                <div class="md-checkbox">
-                                    <input name="allDay" type="checkbox" [ngModel]="addObj.allDay" id="allDay" class="md-check">
-                                    <label for="allDay">
-                                    <span></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span> Todo el día </label>
-                                </div>
-                                <div class="md-checkbox">
-                                    <input name="hasDetails" type="checkbox" [ngModel]="addObj.hasDetails" id="hasDetails" class="md-check">
-                                    <label for="hasDetails">
-                                    <span></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span> Tiene Detalles </label>
-                                </div>
-                                <!--<div class="md-checkbox">
-                                    <input name="onMySchedule" type="checkbox" [ngModel]="addObj.onMySchedule" id="onMySchedule" class="md-check">
-                                    <label for="onMySchedule">
-                                    <span></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span> En mi agenda </label>
-                                </div> -->
-							</div>
-						</div>
 					</div>
 					<div class="form-actions">
 						<div class="row">

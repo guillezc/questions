@@ -15,7 +15,8 @@
     'angular2-localstorage':      'node_modules/angular2-localstorage',
     'ng2-datetime':               'node_modules/ng2-datetime',
     'ng2-select':                 'node_modules/ng2-select',
-    'ng2-tag-input':              'node_modules/ng2-tag-input'
+    'ng2-tag-input':              'node_modules/ng2-tag-input',
+    'ng2-table':                  'node_modules/ng2-table'
   };
 
   // packages tells the System loader how to load when no filename and/or no extension
@@ -27,7 +28,8 @@
     'angular2-localstorage':      { main: 'index.js', defaultExtension: 'js' },
     'ng2-datetime':               { main: 'ng2-datetime.js', defaultExtension: 'js' },
     'ng2-select':                 { main: 'ng2-select.js', defaultExtension: 'js' },
-    'ng2-tag-input':              { main: 'index.js', defaultExtension: 'js' }
+    'ng2-tag-input':              { main: 'index.js', defaultExtension: 'js' },
+    'ng2-table':                  { main: 'ng2-table.js', defaultExtension: 'js' }
   };
 
   var ngPackageNames = [

@@ -157,7 +157,6 @@ export class SessionEditComponent implements OnInit{
   }
 
   setSpeakerSelecteds(speakers: any[]){
-    
     let items: Array<any> = [];
     for (var key in speakers) {
       if (speakers.hasOwnProperty(key)) {
@@ -169,14 +168,16 @@ export class SessionEditComponent implements OnInit{
   }
 
   setSpeakersItems(speakers: Speaker[]){
-    
+
     let items: Array<any> = [];
-    speakers.forEach((spk: Speaker) => {
-      items.push( {
-        id  : spk.$key,
-        text: spk.name
+    if(speakers.length>0){
+      speakers.forEach((spk: Speaker) => {
+        items.push( {
+          id  : spk.$key,
+          text: spk.name
+        });
       });
-    });
+    }
 
     return items;
   }

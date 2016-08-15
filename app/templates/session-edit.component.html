@@ -41,7 +41,7 @@
 						<div class="form-group form-md-line-input form-md-checkboxes">
 							<div class="md-checkbox-inline">
                                 <div class="md-checkbox">
-                                    <input name="allDay" type="checkbox" [ngModel]="sessionObj.allDay" id="allDay" class="md-check" (change)="validaDias(sessionObj.allDay)">
+                                    <input name="allDay" type="checkbox" [(ngModel)]="sessionObj.allDay" id="allDay" class="md-check" (change)="validaDias(sessionObj.allDay)">
                                     <label for="allDay">
                                     <span></span>
                                     <span class="check"></span>
@@ -98,8 +98,8 @@
 					<div class="form-actions">
 						<div class="row">
 				            <div class="col-md-12 text-right">
-				                <button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
 				                <a [routerLink]="['/sesiones']" class="btn default"><i class="fa fa-arrow-left"></i> Regresar</a>
+				                <button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
 				            </div>
 				        </div>
 					</div>

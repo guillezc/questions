@@ -21,15 +21,14 @@
 	                        </div>
 	                    </div>
                     </div>
-                    <table class="table table-striped table-bordered table-hover" id="datatable_sessions">
+                    <table class="table table-striped table-bordered table-hover order-column" id="datatable_sessions">
                         <thead>
                             <tr role="row" class="heading">
                                 <th width="15%">Hora Inicio -  Fin</th>
-                                <th width="15%">Salón</th>
-                                <th width="15%"> Título </th>
+                                <th width="20%">Salón</th>
+                                <th width="25%"> Título </th>
                                 <th width="15%"> Oradores </th>
                                 <th width="15%"> Moderadores </th>
-                                <th width="15%"> Brief </th>
                                 <th width="10%">Acciones</th>
                             </tr>
                         </thead>
@@ -47,7 +46,6 @@
                                 <td>
                                     <div *ngFor="let speaker of session.speakers | objToArr"><span *ngIf="speaker.type=='Moderador'">{{ speaker.name }} <br/></span></div>
                                 </td>
-                                <td></td>
                                 <td>
                                 	<input type="hidden" value="{{ session.$key }}" #sessionId>
                                     <a href="javascript:;" (click)="editSession(session)" class="btn btn-circle btn-icon-only btn-default"><i class="fa fa-edit"></i></a>

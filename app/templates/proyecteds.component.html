@@ -6,7 +6,6 @@
         <div *ngFor="let slide of proyecteds | async; let i = index" [attr.index]="i" class="item active" [class.active]="i==0" >
                 <!--<img ng-src="{{slide.image}}" style="margin:auto;"> -->
                 <div class="carousel-caption">
-                    <h1>{{slide.sessionName}}</h1>
                     <div class="table">
                         <div>
                             <h2>{{slide.question}}</h2>

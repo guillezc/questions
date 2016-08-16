@@ -1,7 +1,8 @@
 var TableDatatablesManaged=function() {
     var e=function() {
-        var e=$("#sample_1");
-        e.dataTable( {
+        var e=$("#datatable_sessions");
+        console.log(e);
+        e.Datatable( {
             language: {
                 aria: {
                     sortAscending: ": activate to sort column ascending", sortDescending: ": activate to sort column descending"
@@ -35,151 +36,10 @@ var TableDatatablesManaged=function() {
             $(this).parents("tr").toggleClass("active")
         }
         )
-    }
-    ,
-    t=function() {
-        var e=$("#sample_2");
-        e.dataTable( {
-            language: {
-                aria: {
-                    sortAscending: ": activate to sort column ascending", sortDescending: ": activate to sort column descending"
-                }
-                , emptyTable:"No data available in table", info:"Showing _START_ to _END_ of _TOTAL_ records", infoEmpty:"No records found", infoFiltered:"(filtered1 from _MAX_ total records)", lengthMenu:"Show _MENU_", search:"Search:", zeroRecords:"No matching records found", paginate: {
-                    previous: "Prev", next: "Next", last: "Last", first: "First"
-                }
-            }
-            , bStateSave:!0, pagingType:"bootstrap_extended", lengthMenu:[[5, 15, 20, -1], [5, 15, 20, "All"]], pageLength:5, columnDefs:[ {
-                orderable: !1, targets: [0]
-            }
-            , {
-                searchable: !1, targets: [0]
-            }
-            ], order:[[1, "asc"]]
-        }
-        );
-        jQuery("#sample_2_wrapper");
-        e.find(".group-checkable").change(function() {
-            var e=jQuery(this).attr("data-set"), t=jQuery(this).is(":checked");
-            jQuery(e).each(function() {
-                t?$(this).prop("checked", !0): $(this).prop("checked", !1)
-            }
-            )
-        }
-        )
-    }
-    ,
-    a=function() {
-        var e=$("#sample_3");
-        e.dataTable( {
-            language: {
-                aria: {
-                    sortAscending: ": activate to sort column ascending", sortDescending: ": activate to sort column descending"
-                }
-                , emptyTable:"No data available in table", info:"Showing _START_ to _END_ of _TOTAL_ records", infoEmpty:"No records found", infoFiltered:"(filtered1 from _MAX_ total records)", lengthMenu:"Show _MENU_", search:"Search:", zeroRecords:"No matching records found", paginate: {
-                    previous: "Prev", next: "Next", last: "Last", first: "First"
-                }
-            }
-            , bStateSave:!0, lengthMenu:[[6, 15, 20, -1], [6, 15, 20, "All"]], pageLength:6, columnDefs:[ {
-                orderable: !1, targets: [0]
-            }
-            , {
-                searchable: !1, targets: [0]
-            }
-            ], order:[[1, "asc"]]
-        }
-        );
-        jQuery("#sample_3_wrapper");
-        e.find(".group-checkable").change(function() {
-            var e=jQuery(this).attr("data-set"), t=jQuery(this).is(":checked");
-            jQuery(e).each(function() {
-                t?$(this).prop("checked", !0): $(this).prop("checked", !1)
-            }
-            )
-        }
-        )
-    }
-    ,
-    r=function() {
-        var e=$("#sample_4");
-        e.dataTable( {
-            language: {
-                aria: {
-                    sortAscending: ": activate to sort column ascending", sortDescending: ": activate to sort column descending"
-                }
-                , emptyTable:"No data available in table", info:"Showing _START_ to _END_ of _TOTAL_ records", infoEmpty:"No records found", infoFiltered:"(filtered1 from _MAX_ total records)", lengthMenu:"Show _MENU_", search:"Search:", zeroRecords:"No matching records found", paginate: {
-                    previous: "Prev", next: "Next", last: "Last", first: "First"
-                }
-            }
-            , bStateSave:!0, lengthMenu:[[6, 15, 20, -1], [6, 15, 20, "All"]], pageLength:6, columnDefs:[ {
-                orderable: !1, targets: [0]
-            }
-            , {
-                searchable: !1, targets: [0]
-            }
-            ], order:[[1, "asc"]]
-        }
-        );
-        jQuery("#sample_4_wrapper");
-        e.find(".group-checkable").change(function() {
-            var e=jQuery(this).attr("data-set"), t=jQuery(this).is(":checked");
-            jQuery(e).each(function() {
-                t?$(this).prop("checked", !0): $(this).prop("checked", !1)
-            }
-            )
-        }
-        )
-    }
-    ,
-    o=function() {
-        var e=$("#sample_5");
-        e.dataTable( {
-            language: {
-                aria: {
-                    sortAscending: ": activate to sort column ascending", sortDescending: ": activate to sort column descending"
-                }
-                , emptyTable:"No data available in table", info:"Showing _START_ to _END_ of _TOTAL_ records", infoEmpty:"No records found", infoFiltered:"(filtered1 from _MAX_ total records)", lengthMenu:"Show _MENU_", search:"Search:", zeroRecords:"No matching records found", paginate: {
-                    previous: "Prev", next: "Next", last: "Last", first: "First"
-                }
-            }
-            , footerCallback:function(e, t, a, r, o) {
-                var n=this.api(), c=function(e) {
-                    return"string"==typeof e?1*e.replace(/[\$, ]/g, ""): "number"==typeof e?e: 0
-                }
-                ;
-                total=n.column(3).data().reduce(function(e, t) {
-                    return c(e)+c(t)
-                }
-                , 0), pageTotal=n.column(3, {
-                    page: "current"
-                }
-                ).data().reduce(function(e, t) {
-                    return c(e)+c(t)
-                }
-                , 0), $(n.column(3).footer()).html("$"+pageTotal+" ( $"+total+" total)")
-            }
-            , bStateSave:!0, lengthMenu:[[6, 15, 20, -1], [6, 15, 20, "All"]], pageLength:6, columnDefs:[ {
-                orderable: !1, targets: [0]
-            }
-            , {
-                searchable: !1, targets: [0]
-            }
-            ], order:[[1, "asc"]]
-        }
-        );
-        jQuery("#sample_5_wrapper");
-        e.find(".group-checkable").change(function() {
-            var e=jQuery(this).attr("data-set"), t=jQuery(this).is(":checked");
-            jQuery(e).each(function() {
-                t?$(this).prop("checked", !0): $(this).prop("checked", !1)
-            }
-            )
-        }
-        )
-    }
-    ;
+    };
     return {
         init:function() {
-            jQuery().dataTable&&(e(), t(), a(), r(), o())
+            jQuery().dataTable(e())
         }
     }
 }

@@ -7,6 +7,10 @@ import { Session }  from '../classes/session';
 
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, AuthProviders, AuthMethods } from 'angularfire2';
 
+declare var SessionJS: any;
+import  'app/js/sessions.js';
+//import  'app/assets/pages/scripts/table-datatables-managed.js';
+
 @Component({
   selector: 'q-sessions',
   templateUrl: 'app/templates/sessions.component.html',
@@ -41,6 +45,7 @@ export class SessionsComponent implements OnInit {
     this.sessions = this.firebase.database.list('sessions');
     this.sessions.subscribe(data => {
       this.sessionList = data;
+      SessionJS.init();
     });
   }
 

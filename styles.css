@@ -170,3 +170,8 @@
 .form-sessions .form-control{
     color: #959595 !important;
 }
+table.dataTable{
+    float: left;
+    width: 100%;
+    margin: 10px 0;
+}

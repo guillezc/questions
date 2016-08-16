@@ -50,12 +50,24 @@ export class ParticipantEditComponent implements OnInit{
   }
 
   onSubmit(speak: any) { 
-
     this.speaker.update(speak);
-    let link = ['/participantes'];
-    this.router.navigate(link);
-    
-    this.redirectToParticipants();
+    this.updateOnSessions(speak);
+  }
+
+  updateOnSessions(speak: any){
+    this.firebase.database.list('sessions').subscribe(dataSess => {
+      dataSess.forEach((sess: Session) => {
+        if(sess.speakers){
+          for (var key in sess.speakers) {
+            if (sess.speakers.hasOwnProperty(key)) {
+              if(this.speakerID == key)
+                this.firebase.database.object('/sessions/'+sess.$key+'/speakers/'+key).update(speak);
+            }
+          }
+        }
+      });
+      this.redirectToParticipants();
+    });
   }
 
   redirectToParticipants(){

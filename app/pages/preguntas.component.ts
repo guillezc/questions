@@ -96,6 +96,7 @@ export class QuestionsComponent implements OnInit {
     delete q['$key'];
     delete q['userName'];
     delete q['sessionName'];
+    this.logger.log(q);
     this.firebase.database.object('/questions/'+id).update(q);
   }
 
@@ -105,6 +106,7 @@ export class QuestionsComponent implements OnInit {
     delete q['$key'];
     delete q['userName'];
     delete q['sessionName'];
+    this.logger.log(q);
     this.firebase.database.object('/questions/'+id).update(q);
   }
 

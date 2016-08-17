@@ -16,8 +16,10 @@ var QuestionsVar = function(){
 		        mf.webkitRequestFullscreen();
 		        mf.style.display="";
 		    }) ;
-		    //document.onkeydown = goFullscreen;
+
 			}, 1000)
+
+			
 		}
 	}
 }();

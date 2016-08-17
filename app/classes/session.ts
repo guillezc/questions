@@ -11,6 +11,7 @@ export class Session {
     public location: string;
     public onMySchedule: boolean;
     public slug: string;
+    public managers: Speaker[];
     public speakers: Speaker[];
     public startTime: Date;
     public tags: any[];

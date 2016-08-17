@@ -35,16 +35,16 @@
                         <tbody>
                             <tr *ngFor="let session of sessionList">
                                 <td>{{ session.startTime | date:"dd MMM y - H:mm" }} <br/>
-                                    {{ session.endTime | date:"dd MMM y - H:mm" }}
+                                    <span [hidden]="session.allDay">{{ session.endTime | date:"dd MMM y - H:mm" }}</span>
                                 </td>
                                 <td>{{ session.location }} </td>
                                 <td>{{ session.title | slice:0:50 }} <span *ngIf="session.title.length > 50">...</span></td>
                                 <!--<td>{{ session.description | slice:0:60 }} <span *ngIf="session.description.length > 60">...</span></td> -->
                                 <td>
-                                	<div *ngFor="let speaker of session.speakers | objToArr"><span *ngIf="speaker.type=='Orador'">{{ speaker.name }} <br/></span></div>
+                                	<div *ngFor="let speaker of session.speakers | objToArr">{{ speaker.name }} <br/></div>
                                 </td>
                                 <td>
-                                    <div *ngFor="let speaker of session.speakers | objToArr"><span *ngIf="speaker.type=='Moderador'">{{ speaker.name }} <br/></span></div>
+                                    <div *ngFor="let speaker of session.managers | objToArr">{{ speaker.name }} <br/></div>
                                 </td>
                                 <td>
                                 	<input type="hidden" value="{{ session.$key }}" #sessionId>
@@ -54,6 +54,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div [hidden]="isLoaded" class="sessions-loading" id="q-loading">
+                        <img src="app/assets/global/img/loading.gif" alt="loading" />
+                    </div>
                 </div>
             </div>
         </div>

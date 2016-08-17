@@ -15,13 +15,19 @@
             <div class="portlet-body">
 				<form method="post" (ngSubmit)="onSubmit(participantData.value)" #participantData="ngForm" class="form-sessions">
 					<div class="form-body">
-						<div class="form-group form-md-line-input">
+						<!--<div class="form-group form-md-line-input">
 							<label for="type">Tipo de participante <span class="required" aria-required="true">*</span></label>
 							<select name="type" class="form-control" [ngModel]="speakerObj.type">
 								<option value="Moderador">Moderador</option>
 								<option value="Orador">Orador</option>
 							</select>
 							<span class="help-block">Escoja el tipo de participante</span>
+						</div>-->
+						<div class="form-group form-md-line-input">
+							<label for="pic">Foto <span class="required" aria-required="true">*</span></label>
+							<img [hidden]="speakerObj.pic" [src]="speakerObj.pic" class="img-responsive img-thumbnail">
+							<input type="url" name="pic" class="form-control" [(ngModel)]="speakerObj.pic">
+							<span class="help-block">Ingrese la url de la imagen</span>
 						</div>
 						<div class="form-group form-md-line-input">
 							<label for="name">Nombre <span class="required" aria-required="true">*</span></label>

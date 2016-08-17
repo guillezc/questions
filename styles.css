@@ -72,6 +72,9 @@
     width: 100%;
     top: 50px;
 }
+#q-loading.sessions-loading{
+    top: 150px;
+}
 #datatable_sessions tbody > tr > td{
     vertical-align: middle;
 }
@@ -84,6 +87,9 @@
 .form-sessions .form-group.form-md-line-input{
     margin: 0 0 12px;
     padding-top: 10px;
+}
+.form-sessions .form-group.form-md-line-input img{
+    max-height: 120px;
 }
 .form-sessions .form-group.form-md-line-input .form-control{
     height: 30px;
@@ -166,6 +172,7 @@
 .form-sessions .form-group > label,
 .form-sessions .md-checkbox > label{
     font-weight: 600;
+    width: 100%;
 }
 .form-sessions .form-control{
     color: #959595 !important;

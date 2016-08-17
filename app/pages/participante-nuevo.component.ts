@@ -41,12 +41,12 @@ export class ParticipantAddComponent implements OnInit{
     this.speakerObj.name = "";
     this.speakerObj.title = "";
     this.speakerObj.bio = "";
-    this.speakerObj.type = "Moderador";
+    this.speakerObj.pic = "";
   }
 
   onSubmit(sess: any) { 
 
-    this.speakers = this.firebase.database.list('speakers');
+    this.speakers = this.firebase.database.list('people');
     this.speakers.push(sess);
     
     this.redirectToParticipants();

@@ -27,12 +27,10 @@ import  'app/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.
 export class SessionAddComponent implements OnInit {
   addObj: Session = new Session();
   session: FirebaseListObservable<any>;
-  speakers: FirebaseListObservable<any>;
-  speakerItems: Array<any> = [];
-  moderators: FirebaseListObservable<any>;
-  moderatorItems: Array<any> = [];
-  orators: FirebaseListObservable<any>;
-  oratorItems: Array<any> = [];
+  people: FirebaseListObservable<any>;
+  peopleItems: Array<any> = [];
+  managerSelect: Array<any> = [];
+  oratorSelect: Array<any> = [];
 
   firebase: AngularFire; 
   isAllDays: Boolean = false;
@@ -72,33 +70,14 @@ export class SessionAddComponent implements OnInit {
 
   ngOnInit() {
      this.setTitle("Agregar sesión - México Cumbre de Negocios");
-
      this.initSession();
-     this.getModerators();
-     this.getOrators();
+     this.getPeople();
   }
 
-  getModerators(){
-    this.moderators = this.firebase.database.list('speakers', {
-        query: {
-          orderByChild: 'type',
-          equalTo: 'Moderador'
-        }
-      });
-     this.moderators.subscribe(data => {
-      this.moderatorItems = this.setSpeakersItems(data);
-    });
-  }
-
-  getOrators(){
-    this.orators = this.firebase.database.list('speakers', {
-        query: {
-          orderByChild: 'type',
-          equalTo: 'Orador'
-        }
-      });
-     this.orators.subscribe(data => {
-      this.oratorItems = this.setSpeakersItems(data);
+  getPeople(){
+    this.people = this.firebase.database.list('people');
+    this.people.subscribe(data => {
+      this.peopleItems = this.setSpeakersItems(data);
     });
   }
 
@@ -124,9 +103,14 @@ export class SessionAddComponent implements OnInit {
 
     this.session = this.firebase.database.list('/sessions');
     const newID = this.session.push(sess).key;
-    for (var key in this.speakerItems) {
-      if (this.speakerItems.hasOwnProperty(key)) {
-        this.firebase.database.list('/sessions/'+newID+'/speakers').push(this.speakerItems[key]);
+    for (var key in this.oratorSelect) {
+      if (this.oratorSelect.hasOwnProperty(key)) {
+        this.firebase.database.object('/sessions/'+newID+'/speakers/'+key).update(this.oratorSelect[key]);
+      }
+    }
+    for (var mkey in this.managerSelect) {
+      if (this.managerSelect.hasOwnProperty(mkey)) {
+        this.firebase.database.object('/sessions/'+newID+'/managers/'+mkey).update(this.managerSelect[mkey]);
       }
     }
     
@@ -139,40 +123,49 @@ export class SessionAddComponent implements OnInit {
   }
 
   getSession(idSession: any){
-    //this.session = this.firebase.database.object('/sessions/'+idSession);
     this.session.subscribe(data => {
       this.addObj = data;
     });
     
   }
 
-  setSpeakersItems(speakers: Speaker[]){
-    
-    let items: Array<any> = [];
-    speakers.forEach((spk: Speaker) => {
-      items.push( {
-        id  : spk.$key,
-        text: spk.name
-      });
-    });
-
-    return items;
-  }
-
   addSpeaker(value:any):void {
-    this.firebase.database.object('/speakers/'+value.id).subscribe(data => {
+    this.firebase.database.object('/people/'+value.id).subscribe(data => {
       var spkID = data['$key'];
       delete data['$key'];
-      this.speakerItems[spkID] = data;
+      this.oratorSelect[spkID] = data;
     });
   }
 
   removeSpeaker(value:any):void {
-    delete this.speakerItems[value.id];
+    delete this.oratorSelect[value.id];
   }
 
-  validaDias(value:any){
-    this.isAllDays = value ? false : true;
+  addManager(value:any):void {
+    this.firebase.database.object('/people/'+value.id).subscribe(data => {
+      var spkID = data['$key'];
+      delete data['$key'];
+      this.managerSelect[spkID] = data;
+    });
+  }
+
+  removeManager(value:any):void {
+    delete this.managerSelect[value.id];
+  }
+
+  setSpeakersItems(speakers: Speaker[]){
+
+    let items: Array<any> = [];
+    if(speakers.length>0){
+      speakers.forEach((spk: Speaker) => {
+        items.push( {
+          id  : spk.$key,
+          text: spk.name
+        });
+      });
+    }
+
+    return items;
   }
 
   get diagnostic() { return JSON.stringify(this.addObj); }

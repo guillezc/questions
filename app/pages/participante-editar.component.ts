@@ -42,7 +42,7 @@ export class ParticipantEditComponent implements OnInit{
 
     this.sub = this.route.params.subscribe(params => {
       this.speakerID = params['id'];
-      this.speaker = this.firebase.database.object('/speakers/'+this.speakerID);
+      this.speaker = this.firebase.database.object('/people/'+this.speakerID);
       this.speaker.subscribe(data => {
         this.speakerObj = data;
       });
@@ -62,6 +62,14 @@ export class ParticipantEditComponent implements OnInit{
             if (sess.speakers.hasOwnProperty(key)) {
               if(this.speakerID == key)
                 this.firebase.database.object('/sessions/'+sess.$key+'/speakers/'+key).update(speak);
+            }
+          }
+        }
+        if(sess.managers){
+          for (var key in sess.managers) {
+            if (sess.managers.hasOwnProperty(key)) {
+              if(this.speakerID == key)
+                this.firebase.database.object('/sessions/'+sess.$key+'/managers/'+key).update(speak);
             }
           }
         }

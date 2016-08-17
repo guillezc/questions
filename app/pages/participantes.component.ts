@@ -8,6 +8,9 @@ import { Speaker }  from '../classes/speaker';
 
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, AuthProviders, AuthMethods } from 'angularfire2';
 
+declare var ParticipantJS: any;
+import  'app/js/participants.js';
+
 @Component({
   selector: 'q-participants',
   templateUrl: 'app/templates/participants.component.html',
@@ -39,9 +42,10 @@ export class ParticipantsComponent implements OnInit {
   }
 
   getParticipants(){
-  	this.speakers = this.firebase.database.list('speakers');
+  	this.speakers = this.firebase.database.list('people');
     this.speakers.subscribe(data => {
       this.speakersList = data;
+      ParticipantJS.init();
     });
   }
 
@@ -56,6 +60,6 @@ export class ParticipantsComponent implements OnInit {
   }
 
   deleteSpeaker(speaker: Speaker){
-  	this.firebase.database.object('/speakers/'+speaker.$key).remove();
+  	this.firebase.database.object('/people/'+speaker.$key).remove();
   }
 }

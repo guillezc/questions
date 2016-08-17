@@ -26,19 +26,14 @@ import  'app/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.
 export class SessionEditComponent implements OnInit{
   sessionObj: Session = new Session();
   session: FirebaseObjectObservable<any>;
-  moderators: FirebaseListObservable<any>;
-  moderatorItems: Array<any> = [];
-  moderatorSelect: Array<any> = [];
-  orators: FirebaseListObservable<any>;
-  oratorItems: Array<any> = [];
+  people: FirebaseListObservable<any>;
+  peopleItems: Array<any> = [];
+  managerSelect: Array<any> = [];
   oratorSelect: Array<any> = [];
-  speakerSelect: Array<any> = [];
-  tagItems: Array<any> = [];
   firebase: AngularFire;
   submitted = false;
   sub: any;
   sessionID: any;
-  isAllDays: Boolean = false;
 
   timepickerStartOpts: any = {
     minuteStep: 1
@@ -77,34 +72,15 @@ export class SessionEditComponent implements OnInit{
     this.setTitle("Editar sesión - México Cumbre de Negocios");
     this.sub = this.route.params.subscribe(params => {
       this.sessionID = params['id'];
-      this.getSession(this.sessionID);
+      this.getSession();
     });
-
-    this.getModerators();
-    this.getOrators();
+    this.getPeople();
   }
 
-  getModerators(){
-    this.moderators = this.firebase.database.list('speakers', {
-        query: {
-          orderByChild: 'type',
-          equalTo: 'Moderador'
-        }
-      });
-     this.moderators.subscribe(data => {
-      this.moderatorItems = this.setSpeakersItems(data);
-    });
-  }
-
-  getOrators(){
-    this.orators = this.firebase.database.list('speakers', {
-        query: {
-          orderByChild: 'type',
-          equalTo: 'Orador'
-        }
-      });
-     this.orators.subscribe(data => {
-      this.oratorItems = this.setSpeakersItems(data);
+  getPeople(){
+    this.people = this.firebase.database.list('people');
+    this.people.subscribe(data => {
+      this.peopleItems = this.setSpeakersItems(data);
     });
   }
 
@@ -116,17 +92,16 @@ export class SessionEditComponent implements OnInit{
     this.submitted = false;
     sess.startTime = sess.startTime.getTime();
     sess.endTime = sess.endTime.getTime();
-    this.logger.log(sess);
     this.session.update(sess);
     let link = ['/sesiones'];
     this.router.navigate(link);
   }
 
-  getSession(idSession: string){
-    this.session = this.firebase.database.object('/sessions/'+idSession);
+  getSession(){
+    this.session = this.firebase.database.object('/sessions/'+this.sessionID);
     this.session.subscribe(data => {
-      this.getSessionModerators(idSession);
-      this.getSessionOrators(idSession);
+      this.getSessionManagers();
+      this.getSessionOrators();
       data.tags = data.tags ? data.tags : [];
       data.startTime = new Date(data.startTime);
       data.endTime = new Date(data.endTime);
@@ -134,37 +109,16 @@ export class SessionEditComponent implements OnInit{
     });
   }
 
-  getSessionModerators(idSession: any){
-    this.firebase.database.list('sessions/'+idSession+'/speakers', {
-      query: {
-        orderByChild: 'type',
-        equalTo: 'Moderador'
-      }
-    }).subscribe(data => {
-      this.moderatorSelect = this.setSpeakersItems(data);
+  getSessionManagers(){
+    this.firebase.database.list('/sessions/'+this.sessionID+'/managers').subscribe(data => {
+      this.managerSelect = this.setSpeakersItems(data);
     });
   }
 
-  getSessionOrators(idSession: any){
-    this.firebase.database.list('sessions/'+idSession+'/speakers', {
-      query: {
-        orderByChild: 'type',
-        equalTo: 'Orador'
-      }
-    }).subscribe(data => {
+  getSessionOrators(){
+    this.firebase.database.list('/sessions/'+this.sessionID+'/speakers').subscribe(data => {
       this.oratorSelect = this.setSpeakersItems(data);
     });
-  }
-
-  setSpeakerSelecteds(speakers: any[]){
-    let items: Array<any> = [];
-    for (var key in speakers) {
-      if (speakers.hasOwnProperty(key)) {
-        items.push({id: key, text: speakers[key].name});
-      }
-    }
-
-    return items;
   }
 
   setSpeakersItems(speakers: Speaker[]){
@@ -183,9 +137,10 @@ export class SessionEditComponent implements OnInit{
   }
 
   addSpeaker(value:any):void {
-     this.firebase.database.object('/speakers/'+value.id).subscribe(data => {
+    this.firebase.database.object('/people/'+value.id).subscribe(data => {
+      var okey = data['$key'];
       delete data['$key'];
-      this.firebase.database.list('sessions/'+this.sessionID+'/speakers').push(data);
+      this.firebase.database.object('sessions/'+this.sessionID+'/speakers/'+okey).update(data);
     });
     
   }
@@ -194,8 +149,17 @@ export class SessionEditComponent implements OnInit{
     this.firebase.database.list('sessions/'+this.sessionID+'/speakers').remove(value.id);
   }
 
-  validaDias(value:any){
-    this.isAllDays = value ? false : true;
+  addManager(value:any):void {
+    this.firebase.database.object('/people/'+value.id).subscribe(data => {
+      var mkey = data['$key'];
+      delete data['$key'];
+      this.firebase.database.object('sessions/'+this.sessionID+'/managers/'+mkey).update(data);
+    });
+    
+  }
+
+  removeManager(value:any):void {
+    this.firebase.database.list('sessions/'+this.sessionID+'/managers').remove(value.id);
   }
 
   get diagnostic() { return JSON.stringify(this.sessionObj); }

@@ -28,6 +28,7 @@ export class QuestionsComponent implements OnInit {
   questionsListSelected: Question[] = [];
   questionsList: Question[] = [];
   firebase: AngularFire;
+  isLoaded: Boolean = false;
 
   constructor(
     private router         : Router,
@@ -44,7 +45,16 @@ export class QuestionsComponent implements OnInit {
   getQuestions(){
   	this.questions = this.firebase.database.list('questions');
     this.questions.subscribe(data => {
+      data.forEach((q: Question) => {
+        this.firebase.database.object('/people/'+q.userId).subscribe(speakerData => {
+          q.userName = speakerData.name;
+        });
+        this.firebase.database.object('/sessions/'+q.sessionId).subscribe(sessionData => {
+          q.sessionName = sessionData.title;
+        });
+      });
       this.questionsList = data;
+      this.isLoaded = true;
     });
   }
 
@@ -61,14 +71,12 @@ export class QuestionsComponent implements OnInit {
     });
     this.proyecteds.subscribe(data => {
       this.questionsListSelected = data;
-      this.logger.log(data);
       QuestionsVar.init();  
     });
   }
 
   ngOnInit() {
     this.setTitle("Preguntas - México Cumbre de Negocios");
-    //this.globalQuests = this.firebase.database.object('/questions');
   	this.getQuestions();
     this.getSelecteds();
     this.getSessions();

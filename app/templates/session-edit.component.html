@@ -41,7 +41,7 @@
 						<div class="form-group form-md-line-input form-md-checkboxes">
 							<div class="md-checkbox-inline">
                                 <div class="md-checkbox">
-                                    <input name="allDay" type="checkbox" [(ngModel)]="sessionObj.allDay" id="allDay" class="md-check" (change)="validaDias(sessionObj.allDay)">
+                                    <input name="allDay" type="checkbox" [(ngModel)]="sessionObj.allDay" id="allDay" class="md-check">
                                     <label for="allDay">
                                     <span></span>
                                     <span class="check"></span>
@@ -56,7 +56,7 @@
 									<datetime [timepicker]="timepickerStartOpts" [datepicker]="datepickerStartOpts" [ngModel]='sessionObj.startTime' name="startTime"></datetime>
 									<span class="help-block">Ingrese la fecha y hora del inicio para la sesión</span>
 								</div>
-								<div class="col-md-6" [hidden]="isAllDays">
+								<div class="col-md-6" [hidden]="sessionObj.allDay">
 									<label>Fin <span class="required" aria-required="true">*</span></label>
 									<datetime [timepicker]="timepickerEndOpts" [datepicker]="datepickerEndOpts" [ngModel]='sessionObj.endTime' name="endTime"></datetime>
 									<span class="help-block">Ingrese la fecha y hora del final para la sesión</span>
@@ -66,8 +66,8 @@
 						<div class="form-group form-md-line-input" *ngIf="session | async">
 							<div class="row">
 								<div class="col-md-6">
-									<label for="speakers">Oradores <span class="required" aria-required="true">*</span></label>
-									<ng-select [allowClear]="true" [items]="oratorItems"
+									<label for="speakers"><strong>Oradores</strong></label>
+									<ng-select [allowClear]="true" [items]="peopleItems"
 											   [initData]="oratorSelect"
 								               [multiple]="true"
 											   (selected)="addSpeaker($event)"
@@ -76,12 +76,12 @@
 								    </ng-select>
 								</div>
 								<div class="col-md-6">
-									<label for="speakers">Moderadores</label>
-									<ng-select [allowClear]="true" [items]="moderatorItems"
-											   [initData]="moderatorSelect"
+									<label for="speakers"><strong>Moderadores</strong></label>
+									<ng-select [allowClear]="true" [items]="peopleItems"
+											   [initData]="managerSelect"
 								               [multiple]="true"
-											   (selected)="addSpeaker($event)"
-		              						   (removed)="removeSpeaker($event)"
+											   (selected)="addManager($event)"
+		              						   (removed)="removeManager($event)"
 								               placeholder="Seleccione uno o varios">
 								    </ng-select>
 								</div>

@@ -23,6 +23,7 @@ export class SessionsComponent implements OnInit {
   sessions: FirebaseListObservable<any[]>;
   firebase: AngularFire;
   sessionList: Session[] = [];
+  isLoaded: Boolean = false;
 
   constructor(
     private router         : Router,
@@ -46,6 +47,7 @@ export class SessionsComponent implements OnInit {
     this.sessions.subscribe(data => {
       this.sessionList = data;
       SessionJS.init();
+      this.isLoaded = true;
     });
   }
 

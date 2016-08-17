@@ -65,7 +65,7 @@
 						</div>
 						<div class="form-group form-md-line-input" *ngIf="people | async">
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-12">
 									<label for="speakers">Oradores <span class="required" aria-required="true">*</span></label>
 									<ng-select [allowClear]="true" [items]="peopleItems"
 											   [initData]="[]"
@@ -75,7 +75,11 @@
 								               placeholder="Seleccione uno o varios">
 								    </ng-select>
 								</div>
-								<div class="col-md-6">
+							</div>
+						</div>
+						<div class="form-group form-md-line-input" *ngIf="session | async">
+							<div class="row">
+								<div class="col-md-12">
 									<label for="speakers">Moderadores</label>
 									<ng-select [allowClear]="true" [items]="peopleItems"
 											   [initData]="[]"

@@ -70,6 +70,14 @@ export class QuestionsComponent implements OnInit {
       }
     });
     this.proyecteds.subscribe(data => {
+      data.forEach((q: Question) => {
+        this.firebase.database.object('/people/'+q.userId).subscribe(speakerData => {
+          q.userName = speakerData.name;
+        });
+        this.firebase.database.object('/sessions/'+q.sessionId).subscribe(sessionData => {
+          q.sessionName = sessionData.title;
+        });
+      });
       this.questionsListSelected = data;
       QuestionsVar.init();  
     });
@@ -86,6 +94,8 @@ export class QuestionsComponent implements OnInit {
     var id = q.$key;
     q.selected = true;
     delete q['$key'];
+    delete q['userName'];
+    delete q['sessionName'];
     this.firebase.database.object('/questions/'+id).update(q);
   }
 
@@ -93,6 +103,8 @@ export class QuestionsComponent implements OnInit {
     var id = q.$key;
     q.selected = false;
     delete q['$key'];
+    delete q['userName'];
+    delete q['sessionName'];
     this.firebase.database.object('/questions/'+id).update(q);
   }
 
@@ -101,6 +113,8 @@ export class QuestionsComponent implements OnInit {
       var id = q.$key;
       q.selected = false;
       delete q['$key'];
+      delete q['userName'];
+      delete q['sessionName'];
       this.firebase.database.object('/questions/'+id).update(q);
     });
   }
@@ -119,6 +133,14 @@ export class QuestionsComponent implements OnInit {
         }
       });
       this.questions.subscribe(data => {
+        data.forEach((q: Question) => {
+          this.firebase.database.object('/people/'+q.userId).subscribe(speakerData => {
+            q.userName = speakerData.name;
+          });
+          this.firebase.database.object('/sessions/'+q.sessionId).subscribe(sessionData => {
+            q.sessionName = sessionData.title;
+          });
+        });
         this.questionsList = data;
         this.filter = this.firebase.database.object('/sessions/'+session.value);
       });

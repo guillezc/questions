@@ -11,7 +11,7 @@
         <!-- Begin: life time stats -->
         <div class="portlet light portlet-fit portlet-datatable bordered">
             <div class="portlet-body">
-            	<div class="table-container posRel">
+            	<div class="table-container posRel" *ngIf="speakers | async">
             		<div class="table-toolbar questions-toolbar">
                     	<div class="row">
 	                        <div class="col-md-12">

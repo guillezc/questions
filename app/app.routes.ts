@@ -3,7 +3,9 @@ import { provideRouter, RouterConfig }  from '@angular/router';
 import { HomeComponent } from './pages/inicio.component';
 import { QuestionsComponent } from './pages/preguntas.component';
 import { ProyectedComponent } from './pages/proyectar.component';
-import { RatingsComponent } from './pages/votaciones.component';
+import { VotesComponent } from './pages/votaciones.component';
+import { VoteAddComponent } from './pages/votacion-nueva.component';
+import { VoteEditComponent } from './pages/votacion-editar.component';
 import { SessionsComponent } from './pages/sesiones.component';
 import { SessionEditComponent } from './pages/sesion-editar.component';
 import { SessionAddComponent } from './pages/sesion-nueva.component';
@@ -31,7 +33,15 @@ const routes: RouterConfig = [
   },
   {
     path: 'votaciones',
-    component: RatingsComponent
+    component: VotesComponent
+  },
+  {
+    path: 'votacion/nueva',
+    component: VoteAddComponent
+  },
+  {
+    path: 'votacion/editar/:id',
+    component: VoteEditComponent
   },
   {
     path: 'sesiones',

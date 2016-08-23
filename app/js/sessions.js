@@ -14,7 +14,8 @@ var SessionJS = function(){
 					    	infoFiltered: " - filtrado de _MAX_ sesiones",
 					    	search: "Filtrar sesiones:",
 					    	loadingRecords: "Porfavor espere - cargando...",
-					    	infoEmpty: "No hay sesiones para mostrar",
+					    	infoEmpty: " ",
+					    	emptyTable: "No se han encontrado sesiones",
 					        paginate: {
 					            first:    '«',
 					            previous: '‹',

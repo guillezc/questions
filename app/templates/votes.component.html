@@ -15,9 +15,9 @@
             <div class="portlet-body">
             	<div class="table-toolbar">
             		<div class="row">
-            			<div class="col-md-6 pull-right text-right">
+            			<div class="col-md-12">
             				<div class="btn-group">
-                                <button id="add-rating" class="btn sbold green"> Crear votación
+                                <button id="add-vote" (click)="addVote()" class="btn sbold green"> Agregar
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
@@ -25,7 +25,7 @@
             		</div>
             	</div>
             	<div class="table-container">
-                    <table class="table table-striped table-bordered table-hover" id="datatable_questions">
+                    <table class="table table-striped table-bordered table-hover" id="datatable_votes">
                         <thead>
                             <tr role="row" class="heading">
                                 <th width="5%"> Día </th>
@@ -35,17 +35,17 @@
                                 <th width="30%">  </th>
                             </tr>
                         </thead>
-                        <tbody>
-                        	<tr *ngFor="let session of sessions | async">
-                                <td>{{ session.day }}</td>
-                                <td>{{ session.title }}</td>
-                                <td>{{ session.startTime | date:"H:mm" }} hrs</td>
+                        <tbody *ngIf="votes | async">
+                        	<tr *ngFor="let vote of voteList">
+                                <td><div *ngFor="let sess of vote.session | objToArr">{{ sess.day }}</div></td>
+                                <td><div *ngFor="let sess of vote.session | objToArr">{{ sess.title }}</div></td>
+                                <td><div *ngFor="let sess of vote.session | objToArr">{{ sess.startTime | date:"dd MMM y - H:mm" }} hrs</div></td>
                                 <td>
                                     <a href="javascript:;" (click)="goToResults()" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-external-link"></i> Resultados</a>
                                 </td>
                                 <td>
-                                    <a href="javascript:;" (click)="editSession(session)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-edit"></i> Editar</a>
-                                    <a href="javascript:;" (click)="deleteSession(session)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-trash"></i> Eliminar</a>
+                                    <a href="javascript:;" (click)="editVote(vote)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-edit"></i> Editar</a>
+                                    <a href="javascript:;" (click)="deleteVote(vote)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-trash"></i> Eliminar</a>
                                 </td>
                             </tr>
                         </tbody>

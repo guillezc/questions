@@ -1,12 +1,12 @@
-var ParticipantJS = function(){
+var VoteJS = function(){
 	return{
 		init: function(){
 			window.setTimeout(function(){
-				if ( $.fn.dataTable.isDataTable( '#datatable_participants' ) ) {
+				if ( $.fn.dataTable.isDataTable( '#datatable_votes' ) ) {
 				    table = $('#datatable_participants').DataTable();
 				}
 				else {
-				    table = $('#datatable_participants').DataTable( {
+				    table = $('#datatable_votes').DataTable( {
 				        pagingType: 'simple_numbers',
 					    language: {
 					    	lengthMenu: "Mostrar _MENU_ sesiones",
@@ -15,7 +15,7 @@ var ParticipantJS = function(){
 					    	search: "Filtrar sesiones:",
 					    	loadingRecords: "Porfavor espere - cargando...",
 					    	infoEmpty: " ",
-					    	emptyTable: "No se han encontrado participantes",
+					    	emptyTable: "No se han encontrado votos",
 					        paginate: {
 					            first:    '«',
 					            previous: '‹',

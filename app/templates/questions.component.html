@@ -27,7 +27,7 @@
                             <label>
                                 Sesión
                                 <select class="form-control input-md input-medium input-inline" #questionSession>
-                                    <<option value="all">Todas</option>
+                                    <option value="all">Todas</option>
                                     <option *ngFor="let session of sessions | async" value="{{ session.$key }}">{{ session.title }}</option>
                                 </select>
                             </label>

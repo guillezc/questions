@@ -141,7 +141,7 @@
 }
 .form-sessions .tag-input{
     border-bottom: 1px solid #c2cad8;
-    height: 30px;
+    height: auto;
     min-height: 30px;
     padding: 0;
 }

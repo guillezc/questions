@@ -7,7 +7,7 @@ import { Title } from '@angular/platform-browser';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 import { Session }  from '../classes/session';
-import { Vote }  from '../classes/vote';
+import { Survey }  from '../classes/survey';
 
 declare var VoteJS: any;
 import  'app/js/votes.js';
@@ -22,7 +22,7 @@ import  'app/js/votes.js';
 export class VotesComponent implements OnInit {
   votes: FirebaseListObservable<any[]>;
   firebase: AngularFire;
-  voteList: Vote[] = [];
+  surveyList: Survey[] = [];
   isLoaded: Boolean = false;
 
   constructor(
@@ -37,44 +37,45 @@ export class VotesComponent implements OnInit {
     this.titleService.setTitle( newTitle );
   }
 
-  getVotes(){
-  	this.votes = this.firebase.database.list('votes');  
+  getSurveys(){
+  	this.votes = this.firebase.database.list('surveys');  
     this.votes.subscribe(data => {
-      data.forEach((v: Vote) => {
-        this.firebase.database.object('/sessions/'+v.sessionId).subscribe(sessionData => {
+      data.forEach((s: Survey) => {
+        this.firebase.database.object('/sessions/'+s.sessionId).subscribe(sessionData => {
           var arr: any[] = [];
           arr[0] = sessionData;
-          v.session = arr;
+          s.session = arr;
         });
       });
-      this.voteList = data;
+      this.surveyList = data;
       VoteJS.init();
       this.isLoaded = true;
-      this.logger.log(this.voteList);
+      //this.logger.log(this.surveyList);
     });	
   }
 
   ngOnInit() {
     this.setTitle("Votaciones - México Cumbre de Negocios");
-  	this.getVotes();
+  	this.getSurveys();
   }
 
   goToResults() {
   	
   }
 
-  addVote(){
+  addSurvey(){
     let link = ['/votacion/nueva'];
     this.router.navigate(link);
   }
 
-  editVote(vote: Vote) {
-  	let link = ['/votacion/editar', vote.$key];
+  editSurvey(srv: Survey) {
+  	let link = ['/votacion/editar', srv.$key];
     this.router.navigate(link);
   }
 
-  deleteSession(s: any) {
-  	
+  deleteSurvey(s: any) {
+    this.firebase.database.list('/surveys').remove(s.$key);
+    VoteJS.init();
   }
 
 }

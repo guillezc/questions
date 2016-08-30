@@ -35,12 +35,27 @@
 						<span class="help-block">Ingrese la pregunta que será votada</span>
 					</div>
 					<div class="form-group form-md-line-input">
-						<label for="tags">Respuestas <span class="required" aria-required="true">*</span></label>
-						<tag-input [ngModel]="addObj.responses"
+						<label for="tags">Opciones <span class="required" aria-required="true">*</span></label>
+						<!--<tag-input [ngModel]="addObj.options"
 									separatorKeys="[32]"
-									name="responses"
-									placeholder="Agregar respuesta"
-									secondaryPlaceholder="Agregar respuesta"></tag-input>
+									name="options"
+									placeholder="Agregar opción"
+									secondaryPlaceholder="Agregar opción"></tag-input> -->
+						<ul class="surveys-options-list new-opt">
+							<li>
+								<input class="form-control" type="text" name="optionToAdd" [(ngModel)]="optionToAdd.name" placeholder="Agrega una opción"/>
+								<span class="help-block">Agregue la opción dando click en +</span>
+								<button type="button" id="add-options" (click)="addOption()" class="btn sbold green"><i class="fa fa-plus"></i></button>
+							</li>
+						</ul>
+						<br/>
+						<ul class="surveys-options-list">
+							<li *ngFor="let opt of options; let i = index">
+								<input class="form-control" type="text" value="{{ opt.name }}" #optEditing (blur)="editOption(optEditing.value, i)"/>
+								<button type="button" (click)="deleteOption(i)" class="btn red"><i class="fa fa-trash"></i></button>
+							</li>
+						</ul>
+
 					</div>
 					<div class="form-actions">
 						<div class="row">

@@ -17,7 +17,7 @@
             		<div class="row">
             			<div class="col-md-12">
             				<div class="btn-group">
-                                <button id="add-vote" (click)="addVote()" class="btn sbold green"> Agregar
+                                <button id="add-vote" (click)="addSurvey()" class="btn sbold green"> Agregar
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
@@ -36,16 +36,16 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="votes | async">
-                        	<tr *ngFor="let vote of voteList">
-                                <td><div *ngFor="let sess of vote.session | objToArr">{{ sess.day }}</div></td>
-                                <td><div *ngFor="let sess of vote.session | objToArr">{{ sess.title }}</div></td>
-                                <td><div *ngFor="let sess of vote.session | objToArr">{{ sess.startTime | date:"dd MMM y - H:mm" }} hrs</div></td>
+                        	<tr *ngFor="let survey of surveyList">
+                                <td><div *ngFor="let sess of survey.session | objToArr">{{ sess.day }}</div></td>
+                                <td><div *ngFor="let sess of survey.session | objToArr">{{ sess.title }}</div></td>
+                                <td><div *ngFor="let sess of survey.session | objToArr">{{ sess.startTime | date:"dd MMM y - H:mm" }} hrs</div></td>
                                 <td>
                                     <a href="javascript:;" (click)="goToResults()" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-external-link"></i> Resultados</a>
                                 </td>
                                 <td>
-                                    <a href="javascript:;" (click)="editVote(vote)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-edit"></i> Editar</a>
-                                    <a href="javascript:;" (click)="deleteVote(vote)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-trash"></i> Eliminar</a>
+                                    <a href="javascript:;" (click)="editSurvey(survey)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-edit"></i> Editar</a>
+                                    <a href="javascript:;" (click)="deleteSurvey(survey)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-trash"></i> Eliminar</a>
                                 </td>
                             </tr>
                         </tbody>

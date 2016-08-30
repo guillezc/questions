@@ -15,7 +15,7 @@ var VoteJS = function(){
 					    	search: "Filtrar sesiones:",
 					    	loadingRecords: "Porfavor espere - cargando...",
 					    	infoEmpty: " ",
-					    	emptyTable: "No se han encontrado votos",
+					    	emptyTable: "No se han encontrado encuestas",
 					        paginate: {
 					            first:    '«',
 					            previous: '‹',

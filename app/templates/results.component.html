@@ -1,0 +1,26 @@
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a [routerLink]="['/home']">Inicio</a>
+            <i class="fa fa-circle"></i>
+            <a href="#">Resultados</a>
+        </li>
+    </ul>
+</div>
+<h3 class="page-title"> Resultados </h3>
+<div class="row">
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-body">
+            	<div [hidden]="isLoaded" class="sessions-loading" id="q-loading">
+                        <img src="app/assets/global/img/loading.gif" alt="loading" />
+                    </div>
+            	<div class="chart-container" [hidden]="isEmpty">
+            		<div id="gchart_pie_1" style="height:500px;width: auto;"></div>
+            	</div>
+            	<h3 class="text-center" [hidden]="!isEmpty">No hay resultados para esta encuesta</h3>
+            </div>
+        </div>
+    </div>
+</div>

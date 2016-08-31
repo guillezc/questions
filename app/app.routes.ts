@@ -12,6 +12,7 @@ import { SessionAddComponent } from './pages/sesion-nueva.component';
 import { ParticipantsComponent } from './pages/participantes.component';
 import { ParticipantAddComponent } from './pages/participante-nuevo.component';
 import { ParticipantEditComponent } from './pages/participante-editar.component';
+import { ResultsComponent } from './pages/resultados.component';
 
 const routes: RouterConfig = [
   {
@@ -66,6 +67,10 @@ const routes: RouterConfig = [
   {
     path: 'participante/nuevo',
     component: ParticipantAddComponent
+  },
+  {
+    path: 'resultados/:id',
+    component: ResultsComponent
   }
 ];
 

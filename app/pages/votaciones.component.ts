@@ -59,8 +59,9 @@ export class VotesComponent implements OnInit {
   	this.getSurveys();
   }
 
-  goToResults() {
-  	
+  goToResults(srv: Survey) {
+  	let link = ['/resultados/', srv.$key];
+    this.router.navigate(link);
   }
 
   addSurvey(){

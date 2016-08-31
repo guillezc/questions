@@ -9,10 +9,10 @@ var VoteJS = function(){
 				    table = $('#datatable_votes').DataTable( {
 				        pagingType: 'simple_numbers',
 					    language: {
-					    	lengthMenu: "Mostrar _MENU_ sesiones",
+					    	lengthMenu: "Mostrar _MENU_ encuestas",
 					    	info: "Mostrando página _PAGE_ de _PAGES_",
-					    	infoFiltered: " - filtrado de _MAX_ sesiones",
-					    	search: "Filtrar sesiones:",
+					    	infoFiltered: " - filtrado de _MAX_ encuestas",
+					    	search: "Filtrar encuestas:",
 					    	loadingRecords: "Porfavor espere - cargando...",
 					    	infoEmpty: " ",
 					    	emptyTable: "No se han encontrado encuestas",

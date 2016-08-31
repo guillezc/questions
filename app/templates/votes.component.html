@@ -41,7 +41,7 @@
                                 <td><div *ngFor="let sess of survey.session | objToArr">{{ sess.title }}</div></td>
                                 <td><div *ngFor="let sess of survey.session | objToArr">{{ sess.startTime | date:"dd MMM y - H:mm" }} hrs</div></td>
                                 <td>
-                                    <a href="javascript:;" (click)="goToResults()" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-external-link"></i> Resultados</a>
+                                    <a href="javascript:;" (click)="goToResults(survey)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-external-link"></i> Resultados</a>
                                 </td>
                                 <td>
                                     <a href="javascript:;" (click)="editSurvey(survey)" class="btn btn-sm btn-outline grey-salsa"><i class="fa fa-edit"></i> Editar</a>

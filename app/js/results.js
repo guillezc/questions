@@ -8,8 +8,11 @@ var ResultsVar = function(){
 		},
 
 		setVote: function(data){
-			//console.log(data);
 			DATAVOTES.push(data);
+		},
+
+		reset: function(){
+			DATAVOTES = [];
 		}
 	}
 }();

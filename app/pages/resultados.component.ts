@@ -27,6 +27,7 @@ export class ResultsComponent implements OnInit {
 	sub: any;
 	isEmpty: boolean = false;
 	isLoaded: boolean = false;
+  @LocalStorage() public optionsSize: any = 'false';
 
 	constructor(
     private router         : Router,
@@ -43,51 +44,60 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit() {
     this.setTitle("Resultados - México Cumbre de Negocios");
-    this.sub = this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.surveyID = params['id'];
-      this.generateVotes();
-      this.getSession();
-    });
-  }
-
-  getSession(){
-  	this.firebase.database.object('/surveys/'+this.surveyID).subscribe(srvObj => {
-      this.surveyObj = srvObj;
-      this.firebase.database.object('/sessions/'+srvObj.sessionId).subscribe(sessObj => {
-        this.sessionObj = sessObj;
-      });
-    });
-  }
-
-  generateVotes(){
-  	let votesObj: any[] = [];
-  	let votemp: any[] = [];
-  	votemp.push("Opcion");
-  	votemp.push("Numero de votos");
-  	ResultsVar.setVote(votemp);
-
-    this.firebase.database.list('/surveys/'+this.surveyID+'/options').subscribe(data => {
-      var counter = 0;
-      var load = 0;
-      data.forEach((opt: any) => { 
-      	this.firebase.database.object('/votes/'+opt.voteId).subscribe(vote => {
-      		let votemp: any[] = [];
-    			votemp.push(opt.name);
-    			var voteNum = (vote.users != false) ? vote.users.length : 0;
-    			votemp.push(voteNum);
-    			ResultsVar.setVote(votemp);
-
-    			load++;
-    			if(voteNum == 0) counter++;
-    			if(counter == data.length) this.isEmpty = true;
-    			if(load == data.length){
-    				ResultsVar.init();
-    				this.isLoaded = true;
-    			}
-    	  });
+      this.firebase.database.object('/surveys/'+this.surveyID).subscribe(srvObj => {
+        this.surveyObj = srvObj;
+        this.getOptions();
+        this.firebase.database.object('/sessions/'+srvObj.sessionId).subscribe(sessObj => {
+          this.sessionObj = sessObj;
+        });
       });
     });
     
+  }
+
+  getOptions(){
+    ResultsVar.reset();
+
+    let votesObj: any[] = [];
+    let votemp: any[] = [];
+    votemp.push("Opcion");
+    votemp.push("Numero de votos");
+    ResultsVar.setVote(votemp);
+
+    var optionsArr = this.getArrayOf(this.surveyObj.options);
+    var counter = 0;
+    var load = 0;
+    var dataSize = optionsArr.length;
+
+    optionsArr.forEach((opt: any) => {
+      this.firebase.database.object('/votes/'+opt.voteId).subscribe(vote => {
+        let votemp: any[] = [];
+        votemp.push(opt.name);
+        var voteNum = (vote.users != false) ? vote.users.length : 0;
+        votemp.push(voteNum);
+        ResultsVar.setVote(votemp);
+
+        load++;
+        if(voteNum == 0) counter++;
+        if(counter == dataSize) this.isEmpty = true;
+        if(load == dataSize){
+          ResultsVar.init();
+          this.isLoaded = true;
+        }
+      });
+    });
+    
+  }
+
+  getArrayOf(object: any) {
+    let newArr: any[] = [];
+    for (var key in object) {
+      object[key]["$key"] = key;
+      newArr.push(object[key]);
+    }
+    return newArr;
   }
 
 }

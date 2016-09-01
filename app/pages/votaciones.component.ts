@@ -50,7 +50,6 @@ export class VotesComponent implements OnInit {
       this.surveyList = data;
       VoteJS.init();
       this.isLoaded = true;
-      //this.logger.log(this.surveyList);
     });	
   }
 

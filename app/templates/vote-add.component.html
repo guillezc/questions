@@ -15,14 +15,6 @@
             <div class="portlet-body">
 				<form method="post" (ngSubmit)="onSubmit(voteData.value)" #voteData="ngForm" class="form-sessions">
 					<div class="form-group form-md-line-input">
-						<label for="day">Día <span class="required" aria-required="true">*</span></label>
-						<select name="day" class="form-control" [ngModel]="addObj.day">
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-						</select>
-					</div>
-					<div class="form-group form-md-line-input">
 						<label for="sessionId">Sesión <span class="required" aria-required="true">*</span></label>
 						<select name="sessionId" class="form-control" [ngModel]="addObj.sessionId">
 							<option value="..." selected="selected">- Seleccione una sesión -</option>

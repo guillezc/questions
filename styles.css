@@ -195,3 +195,10 @@ table.dataTable{
     width: 270px !important;
     display: inline-block;
 }
+.page-title.results-title{
+    line-height: 30px;
+}
+.page-title.results-title small{
+    line-height: 18px;
+    color: #959595;
+}

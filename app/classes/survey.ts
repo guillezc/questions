@@ -4,7 +4,6 @@ import { Vote }  from '../classes/vote';
 export class Survey {
 
     public $key: number;
-    public day: string;
     public sessionId: string;
     public session: Session[];
     public question: string;

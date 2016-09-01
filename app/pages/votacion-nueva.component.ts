@@ -52,7 +52,6 @@ export class VoteAddComponent implements OnInit {
   initSurvey(){
     this.addObj.sessionId = "...";
     this.addObj.session = [];
-    this.addObj.day = "1";
     this.addObj.question = "";
     this.addObj.options = [];
 

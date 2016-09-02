@@ -2,41 +2,37 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 import { LocalStorage, SessionStorage } from "angular2-localstorage/WebStorage";
 import { Logger } from '../logger';
-import { Title, SafeResourceUrl, DomSanitizationService } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 
 import { Session }  from '../classes/session';
 import { Survey }  from '../classes/survey';
 
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
-declare var ResultsVar: any;
-import  'app/js/results.js';
+declare var ResultsProyectedsVar: any;
+import  'app/js/results-proyecteds.js';
 
 @Component({
-  selector: 'q-results',
-  templateUrl: 'app/templates/results.component.html',
+  selector: 'q-results-proyecteds',
+  templateUrl: 'app/templates/results-proyecteds.component.html',
   directives: [ROUTER_DIRECTIVES]
 })
 
-export class ResultsComponent implements OnInit {
+export class ResultsProyectedComponent implements OnInit {
   surveyObj: Survey = new Survey();
   sessionObj: Session = new Session();
-	firebase: AngularFire;
-  sanitizer: DomSanitizationService;
-	surveyID: any;
-	isEmpty: boolean = false;
-	isLoaded: boolean = false;
-  proyectedUrl: SafeResourceUrl;
+  firebase: AngularFire;
+  surveyID: any;
+  isEmpty: boolean = false;
+  isLoaded: boolean = false;
 
-	constructor(
+  constructor(
     private router         : Router,
     private route          : ActivatedRoute,
     private logger         : Logger,
     public angFire         : AngularFire,
-    private titleService   : Title,
-    private sanit: DomSanitizationService) {
-  		this.firebase = angFire;
-      this.sanitizer = sanit;
+    private titleService   : Title) {
+      this.firebase = angFire;
   }
 
   public setTitle(newTitle: string) {
@@ -47,7 +43,6 @@ export class ResultsComponent implements OnInit {
     this.setTitle("Resultados - México Cumbre de Negocios");
     this.route.params.subscribe(params => {
       this.surveyID = params['id'];
-      this.proyectedUrl = this.sanitizer.bypassSecurityTrustResourceUrl("#/resultadosProyectados/"+this.surveyID);
       this.firebase.database.object('/surveys/'+this.surveyID).subscribe(srvObj => {
         this.surveyObj = srvObj;
         this.getOptions();
@@ -60,13 +55,13 @@ export class ResultsComponent implements OnInit {
   }
 
   getOptions(){
-    ResultsVar.reset();
+    ResultsProyectedsVar.reset();
 
     let votesObj: any[] = [];
     let votemp: any[] = [];
     votemp.push("Opcion");
     votemp.push("Numero de votos");
-    ResultsVar.setVote(votemp);
+    ResultsProyectedsVar.setVote(votemp);
 
     var optionsArr = this.getArrayOf(this.surveyObj.options);
     var counter = 0;
@@ -79,15 +74,16 @@ export class ResultsComponent implements OnInit {
         votemp.push(opt.name);
         var voteNum = (vote.users != false) ? vote.users.length : 0;
         votemp.push(voteNum);
-        ResultsVar.setVote(votemp);
+        ResultsProyectedsVar.setVote(votemp);
 
         load++;
         if(voteNum == 0) counter++;
         if(counter == dataSize) this.isEmpty = true;
         if(load == dataSize){
-          ResultsVar.init();
+          ResultsProyectedsVar.init();
           this.isLoaded = true;
         }
+
       });
     });
     

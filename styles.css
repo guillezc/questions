@@ -24,6 +24,7 @@
 .page-body.page-proyecteds .page-content{
 	margin: 0 !important;
 	padding: 0;
+    height: 100% !important;
 }
 .carousel.slide#carousel-proyecteds,
 .carousel.slide#carousel-proyecteds .carousel-inner,
@@ -201,4 +202,20 @@ table.dataTable{
 .page-title.results-title small{
     line-height: 18px;
     color: #959595;
+}
+.page-body.page-proyecteds .chart-container{
+    height: 100%;
+    display: table;
+    width: 100%;
+}
+.page-body.page-proyecteds .chart-container .chart-inn{
+    display: table-cell;
+    vertical-align: middle;
+}
+.page-body.page-proyecteds .chart-container .page-title{
+    margin: 0;
+    text-align: center;
+}
+.page-body.page-proyecteds .chart-container #gchart_proyecteds > div > div{
+    margin: 0 auto;
 }

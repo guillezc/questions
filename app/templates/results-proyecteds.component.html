@@ -1,0 +1,16 @@
+<div [hidden]="isLoaded" class="sessions-loading" id="q-loading">
+        <img src="app/assets/global/img/loading.gif" alt="loading" />
+    </div>
+<div class="chart-container" [hidden]="isEmpty">
+	<div class="chart-inn">
+		<h3 class="page-title results-title">
+		    {{ surveyObj.question }} <br />
+		    <small>
+		        Día: {{ sessionObj.day }} <br />
+		        Sesión: {{ sessionObj.title }} <br />
+		        Inicio: {{ sessionObj.startTime | date:"dd MMM y - H:mm" }}
+		    </small>
+		</h3>
+		<div id="gchart_proyecteds" style="height: auto;width: 100%;min-width: 686px;"></div>
+	</div>
+</div>

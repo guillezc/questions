@@ -13,6 +13,7 @@ import { ParticipantsComponent } from './pages/participantes.component';
 import { ParticipantAddComponent } from './pages/participante-nuevo.component';
 import { ParticipantEditComponent } from './pages/participante-editar.component';
 import { ResultsComponent } from './pages/resultados.component';
+import { ResultsProyectedComponent } from './pages/resultados-proyectar.component';
 
 const routes: RouterConfig = [
   {
@@ -71,6 +72,10 @@ const routes: RouterConfig = [
   {
     path: 'resultados/:id',
     component: ResultsComponent
+  },
+  {
+    path: 'resultadosProyectados/:id',
+    component: ResultsProyectedComponent
   }
 ];
 

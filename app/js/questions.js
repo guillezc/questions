@@ -17,7 +17,7 @@ var QuestionsVar = function(){
 		        mf.style.display="";
 		    }) ;
 
-			}, 1000)
+			}, 1000);
 
 			
 		}

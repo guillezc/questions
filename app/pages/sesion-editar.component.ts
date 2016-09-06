@@ -11,7 +11,7 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
 import { Title } from '@angular/platform-browser';
 import { NKDatetime } from 'ng2-datetime/ng2-datetime';
 import { SELECT_DIRECTIVES } from 'ng2-select/ng2-select';
-import { TagInput } from 'ng2-tag-input';
+import { TagInputModule } from 'ng2-tag-input';
 
 import  'app/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js';
 import  'app/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.js';
@@ -19,7 +19,7 @@ import  'app/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.
 @Component({
   selector: 'q-sessions-edit',
   templateUrl: 'app/templates/session-edit.component.html',
-  directives: [ROUTER_DIRECTIVES, NKDatetime, SELECT_DIRECTIVES, TagInput, CORE_DIRECTIVES],
+  directives: [ROUTER_DIRECTIVES, NKDatetime, SELECT_DIRECTIVES, TagInputModule, CORE_DIRECTIVES],
   pipes: [ObjToArrPipe]
 })
 

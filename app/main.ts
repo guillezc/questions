@@ -1,6 +1,8 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 
 import { Title } from '@angular/platform-browser';
+
+import * as firebase from "firebase";
 import {FIREBASE_PROVIDERS, 
         defaultFirebase, 
         AngularFire, 
@@ -10,7 +12,6 @@ import {FIREBASE_PROVIDERS,
 import {LocalStorageService, LocalStorageSubscriber} from 'angular2-localstorage/LocalStorageEmitter';
 import { disableDeprecatedForms, provideForms, REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
 import { Logger } from './logger';
-
 import { Component, enableProdMode, provide, PLATFORM_DIRECTIVES } from '@angular/core';
 import { HeaderComponent } from './header.component';
 import { SidebarComponent } from './sidebar.component';

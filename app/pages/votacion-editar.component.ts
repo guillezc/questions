@@ -5,7 +5,7 @@ import { Logger } from '../logger';
 import { ObjKeyToArrPipe } from '../pipes/objKeyToArr.pipe';
 import { Title } from '@angular/platform-browser';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
-import { TagInput } from 'ng2-tag-input';
+import { TagInputModule } from 'ng2-tag-input';
 
 import { Session }  from '../classes/session';
 import { Survey }  from '../classes/survey';
@@ -13,7 +13,7 @@ import { Survey }  from '../classes/survey';
 @Component({
   selector: 'q-vote-add',
   templateUrl: 'app/templates/vote-edit.component.html',
-  directives: [ROUTER_DIRECTIVES, TagInput],
+  directives: [ROUTER_DIRECTIVES, TagInputModule],
   pipes: [ObjKeyToArrPipe]
 })
 
